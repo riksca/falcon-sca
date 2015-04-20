@@ -1,0 +1,412 @@
+/*
+    Document   : default
+    Created on : Apr 24, 2011, 6:09:30 PM
+    Author     : rik
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+
+root {
+    display: block;
+}
+
+body {
+    background-color: #2D1155;
+}
+
+.gwt-RichTextArea {
+    width: 100%;
+    height: 20em;
+}
+
+#base {
+    background-color: transparent;
+    border-left: 3px double #ffcc00;
+    border-right: 3px double #ffcc00;
+    border-bottom: 3px double #ffcc00;
+    margin-left: 22px;
+    margin-right: 22px;
+    margin-bottom: 1em;
+}
+
+#tile {
+    background-color: #F8F3E2;
+    border-left: ridge 2px #f8f3e2;
+    border-right: groove 2px #f8f3e2;
+    border-bottom: groove 2px #f8f3e2;
+    border-top: ridge 2px #f8f3e2;
+    margin-left: 1em;
+    margin-right: 1em;
+    margin-top: 0;
+    margin-bottom: 1em;
+}
+
+.title {
+    display: inline;
+    text-align: left;
+    color:#2D1155;
+    font-size: x-large;
+    vertical-align: top;
+}
+
+.titleImage {
+    padding: .25em;
+}
+
+.hello {
+    display: block;
+    text-align: left;
+    color:#2D1155;
+    margin: .25em;
+}
+
+.userbox {
+    display: inline;
+    border: 1px solid darkblue;
+    text-align: center;
+    vertical-align: middle;
+    margin: .25em;
+    padding: .5em;
+    width: 25em;
+    position:absolute;
+    top:0;
+    right:0;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+}
+
+.userbox input {
+    width: 100%;
+}
+
+a.buttonLink, a.buttonLink:visited, a.buttonLink:link {
+    display: inline;
+    border-style: solid;
+    border-width : 2px;
+    text-decoration : none;
+    padding : 4px;
+    margin-right: 2px;
+    margin-top: 0;
+    margin-left: .5em;
+    margin-bottom: 0;
+    border-color: #898989 #000000 #000000 #898989 ;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    background-color: white;
+    font-size: smaller;
+    color: black;
+}
+
+a.buttonLink:active, a.buttonLink:hover {
+    border-color: #000000 #898989 #898989 #000000 ;
+    background-color: whitesmoke;
+}
+
+#searchBar {
+    color: #F8F3E2;
+    background-color: #2D1155;
+    display: block;
+    border: 1px solid #2D1155;
+    text-align: left;
+    vertical-align: middle;
+    margin-bottom: .25em;
+    margin-left: 1em;
+    margin-right: 1em;
+    margin-top: 4em;
+    padding: .5em;
+    width: 40%;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+}
+
+#error {
+    background-color: #FF3030;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    border: 1px solid #8B1A1A;
+    text-align: center;
+    vertical-align: middle;
+    margin-left: -100px;
+    padding: .5em;
+    width: 25em;
+    opacity: .9;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+    -webkit-transition: opacity 0.5s ease-out;  /* Saf3.2+, Chrome */
+    -moz-transition: opacity 0.5s ease-out;  /* FF4+ */
+    -ms-transition: opacity 0.5s ease-out;  /* IE10? */
+    -o-transition: opacity 0.5s ease-out;  /* Opera 10.5+ */
+    transition: opacity 0.5s ease-out;
+}
+
+#uimessage {
+    background-color: whitesmoke;
+    position: fixed;
+    top: 70%;
+    left: 50%;
+    border: 1px solid #8B1A1A;
+    text-align: center;
+    vertical-align: middle;
+    margin-left: -100px;
+    padding: .5em;
+    width: 25em;
+    opacity: .9;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+    -webkit-transition: opacity 0.5s ease-out;  /* Saf3.2+, Chrome */
+    -moz-transition: opacity 0.5s ease-out;  /* FF4+ */
+    -ms-transition: opacity 0.5s ease-out;  /* IE10? */
+    -o-transition: opacity 0.5s ease-out;  /* Opera 10.5+ */
+    transition: opacity 0.5s ease-out;
+}
+
+.figherIdBox {
+    margin-bottom: .25em;
+    margin-left: 1em;
+    margin-right: 1em;
+    margin-top: 1em;
+    border: 1px solid #FFFAFA;
+    background-color: whitesmoke;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+    display: block;
+    padding: .5em;
+    width: 60%;
+}
+
+.dataBox {
+    background-color: #F8F3E2;
+    display: block;
+    border: 1px solid darkblue;
+    text-align: left;
+    vertical-align: middle;
+    margin-left:auto;
+    margin-right:auto;
+    margin-bottom: .25em;
+    margin-top: 4em;
+    width: 90%;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+}
+
+.dataBoxShort {
+    background-color: #F8F3E2;
+    display: block;
+    border: 1px solid darkblue;
+    text-align: left;
+    vertical-align: middle;
+    margin-bottom: .25em;
+    margin-left: 10%;
+    margin-right: 1em;
+    margin-top: 1em;
+    width: 35%;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+}
+
+.dataBoxShort textarea {
+    width: 100%;
+    height: 100%;
+}
+
+.dataHeader {
+    background-color: #2D1155;
+    color: #FC0;
+    margin: 0 0 0 0;
+    padding: 0 0 0 0;
+    border-top: 1px solid darkblue;
+    border-left: 1px solid darkblue;
+    border-right: 1px solid darkblue;
+    padding: .5em;
+    -moz-border-right-radius: 15px;
+    -moz-border-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-top-left-radius: 15px;
+}
+
+.dataHeader .editButton {
+    float: right;
+    display: inline;
+}
+
+.dataHeader .editButton a:link,
+.dataHeader .editButton a:visited,
+.dataHeader .editButton a:hover,
+.dataHeader .editButton a:active {
+    color: lightslategray;
+}
+
+.dataBody {
+    padding: .5em;
+}
+
+.dataBody table .label {
+    vertical-align: top;
+}
+
+.dataBody table .data {
+    vertical-align: top;
+}
+
+.signupPanel {
+    color: #2D1155;
+    font-family: Georgia, Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", serif;
+    height: 1.25em;
+}
+
+#fighterInfo {
+    display: inline;
+}
+
+#adminInfo {
+    border: 3px double #666666
+}
+
+a.Delete:active, a.Delete:visited, a.Delete:link {
+    border-style: solid;
+    border-width : 2px;
+    text-decoration : none;
+    padding : 4px;
+    margin-right: 2px;
+    margin-top: 2px;
+    margin-left: .5em;
+    margin-bottom: 2px;
+    border-color: #898989 #000000 #000000 #898989 ;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    background-color: whitesmoke;
+    font-size: smaller;
+}
+
+a.Delete:hover {
+    background-color: white;
+}
+
+
+a.BPrint:active, a.BPrint:visited, a.BPrint:link {
+    border-style: solid;
+    border-width : 2px;
+    text-decoration : none;
+    padding : 4px;
+    margin-right: 2px;
+    margin-top: 2px;
+    margin-left: .5em;
+    margin-bottom: 2px;
+    border-color: #898989 #000000 #000000 #898989 ;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    background-color: whitesmoke;
+    font-size: smaller;
+}
+
+a.BPrint:hover {
+    background-color: white;
+}
+
+table.wide-table {
+    width: 100%;
+}
+
+#about {
+    margin-top: 5em;
+    margin-right: 1.5em;
+    margin-left: 1.5em;
+    margin-bottom: 1.5em;
+}
+
+.loplabel {
+    display: inline;
+}
+
+.loplink {
+}
+
+a.loplink:link, a.loplink:visited {
+    text-align: center;
+    text-decoration: none;
+    font-weight: bold;
+    border-style: solid;
+    border-width : 2px;
+    padding : 4px;
+    margin-right: 2px;
+    margin-top: .5em;
+    margin-left: .5em;
+    margin-bottom: .5em;
+    width: 5em;
+    border-color: #898989 #000000 #000000 #898989 ;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    background-color: white;
+    font-size: smaller;
+    color: black;
+}
+
+a.loplink:hover, a.loplink:active {
+    border-color: #000000 #898989 #898989 #000000 ;
+    background-color: whitesmoke;
+}
+
+.reportTextBox {
+    width: 99%;
+    min-height: 10em;
+}
+
+.reportButtonPanel {
+    border-style: solid;
+    border-width : 2px;
+    padding : 4px;
+    margin-right: 2px;
+    margin-top: .5em;
+    margin-left: .5em;
+    margin-bottom: .5em;
+}
+
+.reportbg {
+    border-style: solid;
+    border-width : 2px;
+    border-color: #FFFAFA;
+    padding : 4px;
+    margin-right: 2px;
+    margin-top: .5em;
+    margin-left: .5em;
+    margin-bottom: .5em;
+}
+
+.reportTitle {
+    font-size: larger;
+    color: black;
+}
+
+.reportInstructions {
+    color: black;
+    margin-bottom: 1em;
+}
+
+.personalInfo {
+    color: black;
+}
+
+.personalInfo table {
+    width: 100%;
+}
+
+.activitiesInfo {
+
+}
+
+.activitiesInfo .gwt-Label {
+    display: inline;
+    padding-right: 1em;
+}
+
+.activitiesInfo text {
+    display: inline;
+    width: 1.5em;
+    margin-right: 1em;
+}
+
+#ReportGen .buttonLink {
+    margin-right: 2em;
+}

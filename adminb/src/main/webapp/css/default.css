@@ -1,0 +1,32 @@
+/*
+    Document   : default
+    Created on : Jun 15, 2013, 6:03:54 PM
+    Author     : Rik Scarborough
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+
+.right {
+    float: right;
+}
+
+.left {
+    float: left;
+}
+
+.inline {
+    display: inline;
+}
+
+.inline_table {
+    display: inline-table;
+}
+
+.top {
+    vertical-align: top;
+}
+
+.bottom {
+    vertical-align: bottom;
+}

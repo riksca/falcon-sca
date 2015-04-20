@@ -1,0 +1,12 @@
+apply plugin: 'war'
+
+war {
+    archiveName 'adminb-2.0.war'
+}
+
+dependencies {
+    compile project (':falcon-common')
+    compile project (':falcon-db')
+    compile project (':falcon-security')
+    compile group: 'org.gaelyk', name: 'gaelyk', version: '2.1.2'
+}

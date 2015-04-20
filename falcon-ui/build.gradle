@@ -1,0 +1,48 @@
+apply plugin: 'war'
+apply plugin: 'gwt'
+apply plugin: 'appengine'
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'de.richsource.gradle.plugins:gwt-gradle-plugin:0.6'
+        classpath 'com.google.appengine:gradle-appengine-plugin:1.9.18'
+    }
+}
+
+war {
+    archiveName 'falcon-ui-2.0.war'
+}
+
+gwt {
+    gwtVersion='2.7.0'
+    modules 'org.calontir.marshallate.falcon.Fighter'
+    dependencies {
+        gwt files(project(':falcon-db').sourceSets.main.java.srcDirs)
+        gwt files(project(':falcon-common').sourceSets.main.java.srcDirs)
+        gwt group: 'org.gwtbootstrap3', name: 'gwtbootstrap3', version: '0.9'
+    }
+}
+
+
+if (!hasProperty('mainClass')) {
+    ext.mainClass = ''
+}
+
+dependencies {
+    compile project (':falcon-common')
+    compile project (':falcon-db')
+    compile project (':falcon-security')
+    compile project (':falcon-print')
+    compile group: 'com.google.gwt', name: 'gwt-servlet', version: '2.7.0'
+    compile group: 'com.google.gwt', name: 'gwt-user', version: '2.7.0'
+    appengineSdk 'com.google.appengine:appengine-java-sdk:1.9.18'
+    //gwt  project: ':falcon-db', classifier: 'sources'
+}
+
+appengine {
+    downloadSdk = true
+    //jvmFlags = ['-Xms512m', '-Xmx1024m']
+}

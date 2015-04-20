@@ -1,0 +1,17 @@
+/.gradle
+**/war
+**/private
+.classpath
+.project
+.settings
+target-eclipse
+*.swp
+/adminb/build/
+/api/build/
+/falcon-common/build/
+/falcon-db/build/
+/falcon-ear/build/
+/falcon-print/build/
+/falcon-security/build/
+/falcon-ui/build/
+/adminb/cardtest.pdf

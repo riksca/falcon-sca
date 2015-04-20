@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dispatch-entries>
+    <dispatch>
+        <url>*/admin/*</url>
+        <module>adminb</module>
+    </dispatch>
+</dispatch-entries>
