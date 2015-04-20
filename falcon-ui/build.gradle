@@ -5,10 +5,11 @@ apply plugin: 'appengine'
 buildscript {
     repositories {
         jcenter()
+        mavenCentral()
     }
     dependencies {
         classpath 'de.richsource.gradle.plugins:gwt-gradle-plugin:0.6'
-        classpath 'com.google.appengine:gradle-appengine-plugin:1.9.18'
+        classpath "com.google.appengine:gradle-appengine-plugin:${appengineSdkVersion}"
     }
 }
 
@@ -17,7 +18,6 @@ war {
 }
 
 gwt {
-    gwtVersion='2.7.0'
     modules 'org.calontir.marshallate.falcon.Fighter'
     dependencies {
         gwt files(project(':falcon-db').sourceSets.main.java.srcDirs)
@@ -36,9 +36,9 @@ dependencies {
     compile project (':falcon-db')
     compile project (':falcon-security')
     compile project (':falcon-print')
-    compile group: 'com.google.gwt', name: 'gwt-servlet', version: '2.7.0'
-    compile group: 'com.google.gwt', name: 'gwt-user', version: '2.7.0'
-    appengineSdk 'com.google.appengine:appengine-java-sdk:1.9.18'
+    compile group: 'com.google.gwt', name: 'gwt-servlet', version: gwtVersion
+    compile group: 'com.google.gwt', name: 'gwt-user', version: gwtVersion
+    appengineSdk "com.google.appengine:appengine-java-sdk:${appengineSdkVersion}"
     //gwt  project: ':falcon-db', classifier: 'sources'
 }
 

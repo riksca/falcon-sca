@@ -1,4 +1,15 @@
 apply plugin: 'war'
+apply plugin: 'appengine'
+
+buildscript {
+    repositories {
+        jcenter()
+        mavenCentral()
+    }
+    dependencies {
+        classpath "com.google.appengine:gradle-appengine-plugin:${appengineSdkVersion}"
+    }
+}
 
 war {
     archiveName 'adminb-2.0.war'
@@ -8,5 +19,11 @@ dependencies {
     compile project (':falcon-common')
     compile project (':falcon-db')
     compile project (':falcon-security')
+    appengineSdk "com.google.appengine:appengine-java-sdk:${appengineSdkVersion}"
     compile group: 'org.gaelyk', name: 'gaelyk', version: '2.1.2'
+}
+
+appengine {
+    downloadSdk = true
+    //jvmFlags = ['-Xms512m', '-Xmx1024m']
 }
