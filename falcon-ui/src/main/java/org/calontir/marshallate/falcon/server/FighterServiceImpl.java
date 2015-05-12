@@ -2,9 +2,6 @@ package org.calontir.marshallate.falcon.server;
 
 import com.google.appengine.api.NamespaceManager;
 import com.google.appengine.api.datastore.Cursor;
-import com.google.appengine.api.taskqueue.Queue;
-import com.google.appengine.api.taskqueue.QueueFactory;
-import com.google.appengine.api.taskqueue.TaskOptions;
 import static com.google.appengine.api.taskqueue.TaskOptions.Builder.withUrl;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import java.util.ArrayList;
@@ -36,6 +33,12 @@ import org.calontir.marshallate.falcon.dto.TableUpdates;
 import org.calontir.marshallate.falcon.user.Security;
 import org.calontir.marshallate.falcon.user.SecurityFactory;
 import org.joda.time.DateTime;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 
 /**
  *
@@ -264,17 +267,29 @@ public class FighterServiceImpl extends RemoteServiceServlet implements FighterS
     @Override
     public void sendReportInfo(Map<String, Object> reportInfo) {
         log("send report");
-        Queue queue = QueueFactory.getDefaultQueue();
-        TaskOptions to = withUrl("/BuildReport.groovy");
-        to.method(TaskOptions.Method.POST);
-        for (String key : reportInfo.keySet()) {
-            if (reportInfo.get(key) instanceof Collection) {
-            } else {
-                to.param(key, reportInfo.get(key).toString());
+        final ModuleService modulesApi = ModuleServiceFactory.getModuleService();
+
+        try {
+            final URL url = new URL("http://" + 
+                    modulesApi.getVersionHostname("adminb", "2.0") +
+                    "/BuildReport.groovy");
+            log("Sending report to " + url.toString());
+            final HttpURLConnection connection = 
+                (HttpURLConnection) url.openConnection();
+            connection.setDoOutput(true);
+            connection.setRequestMethod("POST");
+
+            final OutputStreamWriter writer = 
+                new OutputStreamWriter(connection.getOutputStream());
+            for (String key : reportInfo.keySet()) {
+                if (!reportInfo.get(key) instanceof Collection) {
+                    writer.write(key + "=" + reportInfo.get(key).toString());
+                }
             }
+            writer.close();
+        } catch (MalformedURLException mue) {
+        } catch (IOException ioe) {
         }
-        to.header("Host", "http://adminb.falcon-sca-2.appspot.com/");
-        queue.add(to);
     }
 
     @Override
