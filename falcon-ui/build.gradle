@@ -18,6 +18,7 @@ war {
 }
 
 gwt {
+    gwtVersion='2.7.0'
     modules 'org.calontir.marshallate.falcon.Fighter'
     dependencies {
         gwt files(project(':falcon-db').sourceSets.main.java.srcDirs)

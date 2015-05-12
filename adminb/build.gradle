@@ -15,15 +15,25 @@ war {
     archiveName 'adminb-2.0.war'
 }
 
+repositories {
+    jcenter()
+    mavenCentral()
+}
+
 dependencies {
     compile project (':falcon-common')
     compile project (':falcon-db')
     compile project (':falcon-security')
     appengineSdk "com.google.appengine:appengine-java-sdk:${appengineSdkVersion}"
+
+    compile 'org.codehaus.groovy:groovy-all:2.2.2'
+
     compile group: 'org.gaelyk', name: 'gaelyk', version: '2.1.2'
 }
 
 appengine {
     downloadSdk = true
     //jvmFlags = ['-Xms512m', '-Xmx1024m']
+    //jvmFlags = ['-Xdebug', '-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=8000']
+    //warDir = file('src/main/webapp')
 }
