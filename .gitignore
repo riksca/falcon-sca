@@ -16,3 +16,4 @@ target-eclipse
 /falcon-ui/build/
 /adminb/cardtest.pdf
 /.nb-gradle/
+/falcon-print/cardtest.pdf

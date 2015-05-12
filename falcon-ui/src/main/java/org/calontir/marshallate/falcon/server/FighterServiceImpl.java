@@ -2,8 +2,14 @@ package org.calontir.marshallate.falcon.server;
 
 import com.google.appengine.api.NamespaceManager;
 import com.google.appengine.api.datastore.Cursor;
-import static com.google.appengine.api.taskqueue.TaskOptions.Builder.withUrl;
+import com.google.appengine.api.modules.ModulesService;
+import com.google.appengine.api.modules.ModulesServiceFactory;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -33,12 +39,6 @@ import org.calontir.marshallate.falcon.dto.TableUpdates;
 import org.calontir.marshallate.falcon.user.Security;
 import org.calontir.marshallate.falcon.user.SecurityFactory;
 import org.joda.time.DateTime;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLEncoder;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
 
 /**
  *
@@ -267,28 +267,31 @@ public class FighterServiceImpl extends RemoteServiceServlet implements FighterS
     @Override
     public void sendReportInfo(Map<String, Object> reportInfo) {
         log("send report");
-        final ModuleService modulesApi = ModuleServiceFactory.getModuleService();
+        final ModulesService modulesApi = ModulesServiceFactory.getModulesService();
 
         try {
-            final URL url = new URL("http://" + 
-                    modulesApi.getVersionHostname("adminb", "2.0") +
-                    "/BuildReport.groovy");
+            final URL url = new URL("http://"
+                    + modulesApi.getVersionHostname("adminb", "2.0")
+                    + "/BuildReport.groovy");
             log("Sending report to " + url.toString());
-            final HttpURLConnection connection = 
-                (HttpURLConnection) url.openConnection();
+            final HttpURLConnection connection
+                    = (HttpURLConnection) url.openConnection();
             connection.setDoOutput(true);
             connection.setRequestMethod("POST");
 
-            final OutputStreamWriter writer = 
-                new OutputStreamWriter(connection.getOutputStream());
+            final OutputStreamWriter writer
+                    = new OutputStreamWriter(connection.getOutputStream());
             for (String key : reportInfo.keySet()) {
-                if (!reportInfo.get(key) instanceof Collection) {
+                if (reportInfo.get(key) instanceof Collection) {
+                } else {
                     writer.write(key + "=" + reportInfo.get(key).toString());
                 }
             }
             writer.close();
         } catch (MalformedURLException mue) {
+            log(mue.getLocalizedMessage(), mue);
         } catch (IOException ioe) {
+            log(ioe.getLocalizedMessage(), ioe);
         }
     }
 

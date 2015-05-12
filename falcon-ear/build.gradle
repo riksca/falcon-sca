@@ -11,12 +11,12 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.google.appengine:gradle-appengine-plugin:1.9.18'
+        classpath "com.google.appengine:gradle-appengine-plugin:${appengineSdkVersion}"
     }
 }
 
 dependencies {
-    appengineSdk 'com.google.appengine:appengine-java-sdk:1.9.18'
+    appengineSdk "com.google.appengine:appengine-java-sdk:${appengineSdkVersion}"
     deploy project(path: ':falcon-ui', configuration: 'archives')
     deploy project(path: ':adminb', configuration: 'archives')
     //deploy project(path: ':api', configuration: 'archives')
