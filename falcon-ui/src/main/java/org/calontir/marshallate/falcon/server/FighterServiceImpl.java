@@ -281,13 +281,24 @@ public class FighterServiceImpl extends RemoteServiceServlet implements FighterS
 
             final OutputStreamWriter writer
                     = new OutputStreamWriter(connection.getOutputStream());
+            boolean first = true;
             for (String key : reportInfo.keySet()) {
                 if (reportInfo.get(key) instanceof Collection) {
                 } else {
+                    if(first) {
+                        first = false;
+                    } else{
+                        writer.write("&");
+                    }
                     writer.write(key + "=" + reportInfo.get(key).toString());
                 }
             }
             writer.close();
+            if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+                log("Connection ok");
+            } else {
+                log("Connection " + connection.getResponseCode());
+            }
         } catch (MalformedURLException mue) {
             log(mue.getLocalizedMessage(), mue);
         } catch (IOException ioe) {
