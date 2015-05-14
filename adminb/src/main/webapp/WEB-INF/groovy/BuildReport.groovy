@@ -10,8 +10,6 @@ import org.apache.commons.lang.StringEscapeUtils
 import org.calontir.marshallate.falcon.common.*
 import com.google.appengine.api.ThreadManager
 
-logger.BuildReport.info("Building report" + params)
-
 Thread thread = ThreadManager.createBackgroundThread(new Runnable() {
         public void run() {
             def now = new DateTime()
