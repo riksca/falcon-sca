@@ -10,9 +10,8 @@ import org.calontir.marshallate.falcon.common.FighterStatus
 @GaelykBindings
 class FighterService {
     def fighterCount() {
-        def q = "select count from Fighter where status != ${FighterStatus.DELETED.toString()}"
-
-        println q
-        datastore.execute { q }
+        datastore.execute {
+            select count from Fighter where status != 'DELETED'
+        }
     }
 }

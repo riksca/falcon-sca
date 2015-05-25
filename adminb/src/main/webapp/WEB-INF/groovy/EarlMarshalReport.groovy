@@ -9,10 +9,8 @@ import org.calontir.marshallate.falcon.service.FighterService
 
 logger.StoreDatabase.info "Earl Marshal Report"
 
-def fighterCount = datastore.execute {
-    select count from Fighter
-    where status != FighterStatus.DELETED.toString()
-}
+def service = new FighterService()
+def fighterCount = service.fighterCount()
 
 def activeCount = datastore.execute {
     select count from Fighter
