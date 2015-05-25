@@ -1,5 +1,7 @@
 apply plugin: 'war'
 apply plugin: 'appengine'
+//apply plugin: 'gaelyk'
+apply plugin: 'groovy'
 
 buildscript {
     repositories {
@@ -8,6 +10,7 @@ buildscript {
     }
     dependencies {
         classpath "com.google.appengine:gradle-appengine-plugin:${appengineSdkVersion}"
+        //classpath "org.gradle.api.plugins:gradle-gaelyk-plugin:0.6"
     }
 }
 
@@ -21,14 +24,18 @@ repositories {
 }
 
 dependencies {
+    def gaelykVersion = '2.1.2'
     compile project (':falcon-common')
     compile project (':falcon-db')
     compile project (':falcon-security')
     appengineSdk "com.google.appengine:appengine-java-sdk:${appengineSdkVersion}"
 
+    //compile 'net.sf.opencsv:opencsv:2.3'
     compile 'org.codehaus.groovy:groovy-all:2.2.2'
 
-    compile group: 'org.gaelyk', name: 'gaelyk', version: '2.1.2'
+    compile group: 'org.gaelyk', name: 'gaelyk', version: gaelykVersion
+    //compile "com.google.appengine:appengine-api-1.0-sdk:$appengineSdkVersion",
+    //        "com.google.appengine:appengine-api-labs:$appengineSdkVersion"
 }
 
 appengine {

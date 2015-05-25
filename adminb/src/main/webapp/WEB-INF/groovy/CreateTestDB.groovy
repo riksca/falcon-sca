@@ -14,15 +14,15 @@ import static com.google.appengine.api.datastore.FetchOptions.Builder.*
 
 
 
-def scaGroup = new Entity ("ScaGroup")
-scaGroup.groupName = "Lonely Tower"
-scaGroup.groupLocation = "North"
-scaGroup.save()
+def lonelyTower = new Entity ("ScaGroup")
+lonelyTower.groupName = "Lonely Tower"
+lonelyTower.groupLocation = "North"
+lonelyTower.save()
 
-scaGroup = new Entity ("ScaGroup")
-scaGroup.groupName = "Forgotten Sea"
-scaGroup.groupLocation = "Central"
-scaGroup.save()
+def forgottenSea = new Entity ("ScaGroup")
+forgottenSea.groupName = "Forgotten Sea"
+forgottenSea.groupLocation = "Central"
+forgottenSea.save()
 
 def i = 0
 def wsh = new Entity("AuthType")
@@ -62,8 +62,8 @@ marshal.orderValue = ++i
 marshal.save()
 
 def ct = new Entity("AuthType")
-ct.code = "HR/CT"
-ct.description = "Heavy Rapier/Cut and Thrust"
+ct.code = "CT"
+ct.description = "Cut and Thrust"
 ct.orderValue = ++i
 ct.save()
 
@@ -136,7 +136,7 @@ fighter.scaName = "Sir Cardmarshal"
 fighter.scaMemberNo = "22222"
 fighter.modernName = "Bob Somebody"
 fighter.googleId = "test@example.com"
-fighter.scaGroup = scaGroup.key
+fighter.scaGroup = forgottenSea.key
 fighter.role = UserRoles.CARD_MARSHAL.toString()
 fighter.status = "ACTIVE"
 fighter.lastUpdated = new Date();
@@ -171,7 +171,7 @@ fighter.scaName = "Lord Fencer"
 fighter.scaMemberNo = "22222"
 fighter.modernName = "Bob Cutandthrust"
 fighter.googleId = "ct@example.com"
-fighter.scaGroup = scaGroup.key
+fighter.scaGroup = forgottenSea.key
 fighter.role = UserRoles.USER.toString()
 fighter.status = "ACTIVE"
 fighter.lastUpdated = new Date();
@@ -196,4 +196,19 @@ emailEntity.emailAddress = "ct@example.com"
 emailEntity.type = "Home"
 emailEntity.save()
 
-forward "/StoreDatabase.groovy"
+(0..50).each {
+    def e = new Entity("Fighter")
+    e.scaName="Test ${it}"
+    e.modernName="Test ${it}"
+    e.scaGroup=lonelyTower.key
+    e.role=UserRoles.USER.toString()
+    e.status="ACTIVE"
+    e.save()
+}
+
+
+html.html {
+    body {
+        p "Done"
+    }
+}

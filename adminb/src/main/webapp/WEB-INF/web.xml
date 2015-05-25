@@ -4,10 +4,19 @@
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
+    <!-- A servlet context listener to initialize the plugin system -->
+    <listener>
+        <listener-class>groovyx.gaelyk.GaelykServletContextListener</listener-class>
+    </listener>
     <!-- The Gaelyk Groovlet servlet -->
     <servlet>
         <servlet-name>GroovletServlet</servlet-name>
         <servlet-class>groovyx.gaelyk.GaelykServlet</servlet-class>
+    </servlet>
+    <!-- The Gaelyk template servlet -->
+    <servlet>
+        <servlet-name>TemplateServlet</servlet-name>
+        <servlet-class>groovyx.gaelyk.GaelykTemplateServlet</servlet-class>
     </servlet>
     <!-- Specify a mapping between *.groovy URLS and Groovlets -->
     <servlet-mapping>
@@ -18,9 +27,16 @@
         <filter-name>RoutesFilter</filter-name>
         <filter-class>groovyx.gaelyk.routes.RoutesFilter</filter-class>
     </filter>
+    <!-- Specify a mapping between *.gtpl URLs and templates -->
+    <servlet-mapping>
+        <servlet-name>TemplateServlet</servlet-name>
+        <url-pattern>*.gtpl</url-pattern>
+    </servlet-mapping>
     <filter-mapping>
         <filter-name>RoutesFilter</filter-name>
         <url-pattern>/*</url-pattern>
+        <dispatcher>FORWARD</dispatcher>
+        <dispatcher>REQUEST</dispatcher>
     </filter-mapping>
     <servlet>
         <servlet-name>remoteLogging</servlet-name>

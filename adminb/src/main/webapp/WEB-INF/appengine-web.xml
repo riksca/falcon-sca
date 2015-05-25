@@ -8,4 +8,8 @@
     <basic-scaling>
         <max-instances>10</max-instances>
     </basic-scaling>
+    <static-files>
+        <exclude path="/WEB-INF/**.groovy" />
+        <exclude path="**.gtpl" />
+    </static-files>
 </appengine-web-app>

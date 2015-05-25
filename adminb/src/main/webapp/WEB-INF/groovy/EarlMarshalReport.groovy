@@ -4,6 +4,7 @@ import com.google.appengine.api.blobstore.BlobKey
 import com.google.appengine.api.datastore.*
 import static com.google.appengine.api.datastore.FetchOptions.Builder.*
 import groovy.xml.MarkupBuilder
+import org.calontir.marshallate.falcon.service.FighterService
 
 
 logger.StoreDatabase.info "Earl Marshal Report"
