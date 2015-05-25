@@ -19,16 +19,15 @@ public class PhoneTag extends CMPExtendedTagSupport {
     @Override
     protected void init() {
         List<Phone> numberList = (List<Phone>) numbers;
-            number = (numberList == null || numberList.isEmpty()) ? null : numberList.get(0);
-            if (number == null) {
-                number = new Phone();
-            }
+        number = (numberList == null || numberList.isEmpty()) ? new Phone() : numberList.get(0);
     }
 
+    @Override
     protected void doView(JspWriter out) throws IOException {
         out.print(StringUtils.trimToEmpty(number.getPhoneNumber()));
     }
 
+    @Override
     protected void doEdit(JspWriter out) throws IOException {
         out.print("<input type=\"text\" name=\"phoneNumber\"");
         out.print(" value=\"" + StringUtils.trimToEmpty(number.getPhoneNumber()) + "\"");
@@ -36,6 +35,7 @@ public class PhoneTag extends CMPExtendedTagSupport {
         out.println("<br>");
     }
 
+    @Override
     protected void doAdd(JspWriter out) throws IOException {
         out.print("<input type=\"text\" name=\"phoneNumber\"");
         out.print(" value=\"" + StringUtils.trimToEmpty(number.getPhoneNumber()) + "\"");

@@ -20,6 +20,11 @@ war {
 gwt {
     gwtVersion='2.7.0'
     modules 'org.calontir.marshallate.falcon.Fighter'
+    minHeapSize = "512M";
+    maxHeapSize = "1024M";
+    compiler {
+        style = 'DETAILED'
+    }
     dependencies {
         gwt files(project(':falcon-db').sourceSets.main.java.srcDirs)
         gwt files(project(':falcon-common').sourceSets.main.java.srcDirs)

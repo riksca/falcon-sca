@@ -10,7 +10,6 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
-import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -79,7 +78,6 @@ public class FighterFormWidget extends Composite implements EditViewHandler, For
     }
 
     public FighterFormWidget() {
-        addHandler(this, EditViewEvent.TYPE);
         fighterIdBoxPanel.setStyleName("figherIdBox");
         overallPanel.add(fighterIdBoxPanel);
 
@@ -258,7 +256,7 @@ public class FighterFormWidget extends Composite implements EditViewHandler, For
 
         Panel fighterInfo = new FlowPanel();
         fighterInfo.getElement().setId("fighterInfo");
-        DOM.setElementAttribute(fighterInfo.getElement(), "id", "fighterInfo");
+        fighterInfo.getElement().setAttribute("id", "fighterInfo");
         dataBody.add(fighterInfo);
 
         fighterInfo.add(new FighterForm(fighter, edit, dMode == DisplayMode.add));
@@ -277,7 +275,7 @@ public class FighterFormWidget extends Composite implements EditViewHandler, For
 
     private Panel adminInfo(boolean edit) {
         Panel adminInfo = new FlowPanel();
-        DOM.setElementAttribute(adminInfo.getElement(), "id", "adminInfo");
+        adminInfo.getElement().setAttribute("id", "adminInfo");
 
         FlexTable adminTable = new FlexTable();
         FlexTable.FlexCellFormatter adminFormatter = adminTable.getFlexCellFormatter();

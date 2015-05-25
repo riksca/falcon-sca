@@ -6,6 +6,14 @@ subprojects {
     apply from: rootProject.file('common.gradle')
 }
 
+allprojects {
+    gradle.projectsEvaluated {
+        tasks.withType(JavaCompile) {
+            options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+        }
+    }
+}
+
 task mergedJavadoc(type: Javadoc, description: 'Creates Javadoc from all the projects.') {
     title = 'All modules'
     destinationDir = new File(project.buildDir, 'merged-javadoc')
@@ -17,6 +25,14 @@ task mergedJavadoc(type: Javadoc, description: 'Creates Javadoc from all the pro
     classpath.from {
         subprojects*.configurations*.compile*.copyRecursive({ !(it instanceof ProjectDependency); })*.resolve()
     }
+}
+
+task run(dependsOn: ":falcon-ear:appengineRun") << {
+    println "Falcon run"
+}
+
+task stop(dependsOn: ":falcon-ear:appengineStop") << {
+    println "Falcon stop"
 }
 
 task wrapper(type: Wrapper, description: 'Creates and deploys the Gradle wrapper to the current directory.') {

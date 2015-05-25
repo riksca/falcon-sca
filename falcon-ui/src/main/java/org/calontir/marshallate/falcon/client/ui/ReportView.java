@@ -83,7 +83,7 @@ public class ReportView extends Composite {
                     fighterService.getAllReports(new AsyncCallback<List<Report>>() {
                         @Override
                         public void onFailure(Throwable caught) {
-                            log.severe("getAllReports" + caught);
+                            log.log(Level.SEVERE, "getAllReports{0}", caught);
                         }
 
                         @Override
@@ -98,7 +98,7 @@ public class ReportView extends Composite {
                     fighterService.getReports(v, new AsyncCallback<List<Report>>() {
                         @Override
                         public void onFailure(Throwable caught) {
-                            log.severe("getReports" + caught);
+                            log.log(Level.SEVERE, "getReports{0}", caught);
                         }
 
                         @Override
@@ -130,7 +130,8 @@ public class ReportView extends Composite {
                     + (r.getReportType().toLowerCase().equals("event")
                             ? "Event Name: " + r.getReportParams().get("Event Name")
                             : "Marshal Type: " + r.getReportParams().get("Marshal Type")) + " <<>> "
-                    + "Date Entered: " + DateTimeFormat.getMediumDateTimeFormat().format(r.getDateEntered());
+                    + "Date Entered: "
+                    + DateTimeFormat.getFormat(DateTimeFormat.PredefinedFormat.DATE_TIME_MEDIUM).format(r.getDateEntered());
 
             final DisclosurePanel twisty = new DisclosurePanel(header);
             twisty.setStylePrimaryName("reportHeader");
@@ -146,7 +147,7 @@ public class ReportView extends Composite {
                         fighterService.deleteReport(r, new AsyncCallback<Void>() {
                             @Override
                             public void onFailure(Throwable caught) {
-                                log.severe("deleteReport " + caught.getMessage());
+                                log.log(Level.SEVERE, "deleteReport {0}", caught.getMessage());
                             }
 
                             @Override
