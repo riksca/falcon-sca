@@ -147,7 +147,7 @@ public class ReportView extends Composite {
                         fighterService.deleteReport(r, new AsyncCallback<Void>() {
                             @Override
                             public void onFailure(Throwable caught) {
-                                log.log(Level.SEVERE, "deleteReport {0}", caught.getMessage());
+                                log.log(Level.SEVERE, "deleteReport {0}", caught);
                             }
 
                             @Override
