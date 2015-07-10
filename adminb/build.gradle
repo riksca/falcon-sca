@@ -16,6 +16,7 @@ buildscript {
 
 war {
     archiveName 'adminb-2.0.war'
+    webInf { from 'src/main/groovy' }
 }
 
 repositories {
@@ -32,6 +33,7 @@ dependencies {
 
     //compile 'net.sf.opencsv:opencsv:2.3'
     compile 'org.codehaus.groovy:groovy-all:2.2.2'
+    compile 'net.sf.opencsv:opencsv:2.3'
 
     compile group: 'org.gaelyk', name: 'gaelyk', version: gaelykVersion
     //compile "com.google.appengine:appengine-api-1.0-sdk:$appengineSdkVersion",
