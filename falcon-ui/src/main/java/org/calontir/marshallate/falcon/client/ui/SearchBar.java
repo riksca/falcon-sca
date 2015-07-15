@@ -184,16 +184,25 @@ public class SearchBar extends Composite implements DataUpdatedEventHandler, Sea
             groupBox.getElement().getStyle().setDisplay(Style.Display.INLINE);
             searchBox.getElement().getStyle().setDisplay(Style.Display.NONE);
             submit.getElement().getStyle().setDisplay(Style.Display.NONE);
-            ScaGroup scaGroup = LookupController.getInstance().getScaGroup(security.getLoginInfo().getGroup());
+
             logger.info("switchSearchType: group");
 
-            for (int i = 0; i < groupBox.getItemCount(); ++i) {
-                if (groupBox.getItemText(i).equals(scaGroup.getGroupName())) {
-                    groupBox.setItemSelected(i, true);
-                } else {
-                    groupBox.setItemSelected(i, false);
+            ScaGroup scaGroup = null;
+            if (security.isLoggedIn()) {
+                scaGroup = LookupController.getInstance().getScaGroup(security.getLoginInfo().getGroup());
+
+                for (int i = 0; i < groupBox.getItemCount(); ++i) {
+                    if (groupBox.getItemText(i).equals(scaGroup.getGroupName())) {
+                        groupBox.setItemSelected(i, true);
+                    } else {
+                        groupBox.setItemSelected(i, false);
+                    }
                 }
+            } else {
+                groupBox.setSelectedIndex(0);
+                scaGroup = LookupController.getInstance().getScaGroup(group.getValue(group.getSelectedIndex()));
             }
+
             fireEvent(new SearchEvent(scaGroup));
         }
     }
