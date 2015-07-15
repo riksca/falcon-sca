@@ -25,7 +25,7 @@ repositories {
 }
 
 dependencies {
-    def gaelykVersion = '2.1.2'
+    def gaelykVersion = '2.2.0'
     compile project (':falcon-common')
     compile project (':falcon-db')
     compile project (':falcon-security')
