@@ -200,7 +200,7 @@ public class SearchBar extends Composite implements DataUpdatedEventHandler, Sea
                 }
             } else {
                 groupBox.setSelectedIndex(0);
-                scaGroup = LookupController.getInstance().getScaGroup(group.getValue(group.getSelectedIndex()));
+                scaGroup = LookupController.getInstance().getScaGroup(groupBox.getValue(groupBox.getSelectedIndex()));
             }
 
             fireEvent(new SearchEvent(scaGroup));
