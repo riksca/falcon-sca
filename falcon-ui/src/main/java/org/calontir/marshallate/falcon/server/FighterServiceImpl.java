@@ -10,6 +10,7 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -285,12 +286,13 @@ public class FighterServiceImpl extends RemoteServiceServlet implements FighterS
             for (String key : reportInfo.keySet()) {
                 if (reportInfo.get(key) instanceof Collection) {
                 } else {
-                    if(first) {
+                    if (first) {
                         first = false;
-                    } else{
+                    } else {
                         writer.write("&");
                     }
-                    writer.write(key + "=" + reportInfo.get(key).toString());
+                    String value = URLEncoder.encode(reportInfo.get(key).toString(), "UTF-8");
+                    writer.write(key + "=" + value);
                 }
             }
             writer.close();
