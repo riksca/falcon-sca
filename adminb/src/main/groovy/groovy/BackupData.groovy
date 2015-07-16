@@ -7,7 +7,6 @@ import com.google.appengine.api.blobstore.BlobKey
 import com.google.appengine.api.datastore.*
 import static com.google.appengine.api.datastore.FetchOptions.Builder.*
 import com.google.appengine.api.ThreadManager
-import java.io.*
 
 
 def runToday = false
@@ -215,10 +214,11 @@ Thread thread = ThreadManager.createBackgroundThread(new Runnable() {
                 reports reportList
             }
 
-            //def file = files.createNewBlobFile("text/json", String.format("backup%tY%tm%td.json", now, now, now))
-            // we need to do somethign else with the json string.
-            def writer = new StringWriter()
-            writer << json.toString()
+            def file = files.createNewBlobFile("text/json", String.format("backup%tY%tm%td.json", now, now, now))
+
+            file.withWriter {writer ->
+                writer << json.toString()
+            }
 
             namespace.of("system") {
                 def name = "calontir.backupkey"
