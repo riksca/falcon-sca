@@ -11,7 +11,7 @@ repositories {
 }
 
 ext {
-    appengineSdkVersion = '1.9.21'
+    appengineSdkVersion = '1.9.23'
     gwtVersion = '2.7.0'
 }
 
