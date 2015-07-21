@@ -4,10 +4,14 @@
     <module>default</module>
     <version>2-0</version>
     <threadsafe>true</threadsafe>
-    <instance-class>B2</instance-class>
-    <basic-scaling>
-        <max-instances>10</max-instances>
-    </basic-scaling>
+    <instance-class>F1</instance-class>
+    <automatic-scaling>
+        <min-idle-instances>automatic</min-idle-instances>
+        <max-idle-instances>automatic</max-idle-instances>
+        <min-pending-latency>30ms</min-pending-latency>
+        <max-pending-latency>automatic</max-pending-latency>
+        <max-concurrent-requests>50</max-concurrent-requests>
+    </automatic-scaling>
     <static-error-handlers>
         <handler file="default_error.html"/>
         <handler file="over_quota.html" error-code="over_quota"/>
