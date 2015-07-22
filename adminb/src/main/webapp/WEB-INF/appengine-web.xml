@@ -4,9 +4,9 @@
     <module>adminb</module>
     <version>2-0</version>
     <threadsafe>true</threadsafe>
-    <instance-class>B2</instance-class>
+    <instance-class>B1</instance-class>
     <basic-scaling>
-        <max-instances>10</max-instances>
+        <max-instances>2</max-instances>
     </basic-scaling>
     <static-files>
         <exclude path="/WEB-INF/**.groovy" />

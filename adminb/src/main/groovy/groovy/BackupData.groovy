@@ -5,8 +5,10 @@ import org.calontir.marshallate.falcon.dto.ScaGroup
 import com.google.appengine.api.datastore.Entity
 import com.google.appengine.api.blobstore.BlobKey
 import com.google.appengine.api.datastore.*
+import com.google.appengine.tools.cloudstorage.*
 import static com.google.appengine.api.datastore.FetchOptions.Builder.*
 import com.google.appengine.api.ThreadManager
+import java.nio.ByteBuffer;
 
 
 def runToday = false
@@ -214,28 +216,22 @@ Thread thread = ThreadManager.createBackgroundThread(new Runnable() {
                 reports reportList
             }
 
-            def file = files.createNewBlobFile("text/json", String.format("backup%tY%tm%td.json", now, now, now))
+            //def file = files.createNewBlobFile("text/json", String.format("backup%tY%tm%td.json", now, now, now))
+            // we need to do somethign else with the json string.
 
-            file.withWriter {writer ->
-                writer << json.toString()
-            }
+            GcsService gcsService = GcsServiceFactory.createGcsService();
+            GcsFilename filename = new GcsFilename("falcon-sca-2.appspot.com", String.format("backup%tY%tm%td.json", now, now, now));
+            GcsFileOptions options = new GcsFileOptions.Builder()
+            .mimeType("text/html")
+            .acl("public-read")
+            .addUserMetadata("calontir.backup", String.format("backup%tY%tm%td.json", now, now, now))
+            .build();
+
+            GcsOutputChannel writeChannel = gcsService.createOrReplace(filename, options);
+            writeChannel.write(ByteBuffer.wrap(json.toString().getBytes("UTF8")));
+            writeChannel.close();
 
             namespace.of("system") {
-                def name = "calontir.backupkey"
-                def query = new Query("properties")
-                query.addFilter("name", Query.FilterOperator.EQUAL, name)
-                PreparedQuery preparedQuery = datastore.prepare(query)
-                def entities = preparedQuery.asList( withDefaults() )
-                entities.each {
-                    it.delete()
-                }
-
-                Entity sysTable = new Entity("properties")
-                sysTable.name = name
-                sysTable.property = file.blobKey.keyString
-
-                sysTable.save()
-
                 def lastbackupKey = "calontir.lastbackup"
                 query = new Query("properties")
                 query.addFilter("name", Query.FilterOperator.EQUAL, lastbackupKey)
@@ -251,15 +247,13 @@ Thread thread = ThreadManager.createBackgroundThread(new Runnable() {
 
                 sysTable.save()
             }
-
-            html.html {
-                body {
-                    p "Done"
-                    p file.toString()
-                    p file.blobKey.keyString
-                }
-            }
         }
     });
 thread.start()
+
+html.html {
+    body {
+        p "Backup Started"
+    }
+}
 
