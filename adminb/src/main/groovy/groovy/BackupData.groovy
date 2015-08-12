@@ -220,7 +220,7 @@ Thread thread = ThreadManager.createBackgroundThread(new Runnable() {
             // we need to do somethign else with the json string.
 
             GcsService gcsService = GcsServiceFactory.createGcsService();
-            GcsFilename filename = new GcsFilename("falcon-sca-2.appspot.com", String.format("backup%tY%tm%td.json", now, now, now));
+            GcsFilename filename = new GcsFilename("falcon-sca.appspot.com", String.format("backup%tY%tm%td.json", now, now, now));
             GcsFileOptions options = new GcsFileOptions.Builder()
             .mimeType("text/html")
             .acl("public-read")
