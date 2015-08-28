@@ -18,6 +18,7 @@ public class AddressTag extends CMPExtendedTagSupport {
 
     @Override
     protected void init() {
+        @SuppressWarnings("unchecked")
         List<Address> addrs = (List<Address>) addresses;
 
         // change to for statement (bad hack, change)
@@ -95,8 +96,6 @@ public class AddressTag extends CMPExtendedTagSupport {
 //        out.print(" onfocus=\"if (this.value==this.defaultValue) this.value='';"
 //                + " else this.select()\" onblur=\"if (!this.value) this.value=this.defaultValue)\"");
 //        out.println(" />");
-
-
         out.println("<tr>");
         out.print("<td>State:</td>");
         out.print("<td><input type=\"text\" name=\"state\"");

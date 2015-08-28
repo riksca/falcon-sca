@@ -67,7 +67,7 @@ public class Reports extends Composite {
             if (needDivBar) {
                 background.add(getDivBar());
             }
-            earlMarshalReportLink.setHref("/reports/EarlMarshalReport");
+            earlMarshalReportLink.setHref("http://adminb.falcon-sca.appspot.com/reports/EarlMarshalReport");
             earlMarshalReportLink.setStyleName(CALONBARLINK);
             earlMarshalReportLink.setTarget("reports");
             background.add(earlMarshalReportLink);

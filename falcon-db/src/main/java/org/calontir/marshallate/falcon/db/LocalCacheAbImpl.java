@@ -26,8 +26,8 @@ public abstract class LocalCacheAbImpl implements LocalCache {
         data.put(key, value);
     }
 
+    @SuppressWarnings("unchecked")
     public List getValueList() {
-        @SuppressWarnings("unchecked")
         List dataList = new ArrayList(data.values());
         Collections.sort(dataList);
         return dataList;

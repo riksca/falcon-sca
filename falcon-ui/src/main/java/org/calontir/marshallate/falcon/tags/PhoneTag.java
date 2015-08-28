@@ -18,6 +18,7 @@ public class PhoneTag extends CMPExtendedTagSupport {
 
     @Override
     protected void init() {
+        @SuppressWarnings("unchecked")
         List<Phone> numberList = (List<Phone>) numbers;
         number = (numberList == null || numberList.isEmpty()) ? new Phone() : numberList.get(0);
     }

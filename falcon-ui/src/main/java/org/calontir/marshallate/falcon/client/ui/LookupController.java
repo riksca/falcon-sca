@@ -77,7 +77,7 @@ public class LookupController {
             public void onSuccess(FighterListInfo result) {
                 List<FighterInfo> fil = result.getFighterInfo();
                 table.setRowCount(fil.size());
-                List data = dataProvider.getList();
+                List<FighterInfo> data = dataProvider.getList();
                 data.clear();
                 for (FighterInfo fi : fil) {
                     data.add(fi);
@@ -93,6 +93,7 @@ public class LookupController {
             }
 
             @Override
+            @SuppressWarnings("unchecked")
             public void onSuccess(Map<String, Object> result) {
                 versionId = (String) result.get("appversion");
                 authTypes = (List<AuthType>) result.get("authTypes");

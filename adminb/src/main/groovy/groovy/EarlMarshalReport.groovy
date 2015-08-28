@@ -71,9 +71,9 @@ def row = 1
 build.html {
 	head {
 		title('Report')
-        link(href:'css/default.css', type:'text/css', rel:'stylesheet')
-        link(href:'css/cmp_007.css', type:'text/css', rel:'stylesheet')
-        link(href:'css/report.css', type:'text/css', rel:'stylesheet')
+        link(href:'/css/default.css', type:'text/css', rel:'stylesheet')
+        link(href:'/css/cmp_007.css', type:'text/css', rel:'stylesheet')
+        link(href:'/css/report.css', type:'text/css', rel:'stylesheet')
     }
 
     body {
@@ -114,9 +114,11 @@ build.html {
                 }
             }
         }
+        /*
         div (style:'width: 90%;') {
-            a(class: "buttonLink", href:'/', style:'float: right; padding-right: 1em;', "Home")
+        a(class: "buttonLink", href:'/', style:'float: right; padding-right: 1em;', "Home")
         }
+         */
     }
 }
 println writer.toString()

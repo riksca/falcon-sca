@@ -9,7 +9,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath "com.google.appengine:gradle-appengine-plugin:${appengineSdkVersion}"
+        classpath "com.google.appengine:gradle-appengine-plugin:${appenginePluginVersion}"
         //classpath "org.gradle.api.plugins:gradle-gaelyk-plugin:0.6"
     }
 }
