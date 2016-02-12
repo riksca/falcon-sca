@@ -196,13 +196,13 @@ emailEntity.emailAddress = "ct@example.com"
 emailEntity.type = "Home"
 emailEntity.save()
 
-(0..50).each {
+(0..5).each {
     def e = new Entity("Fighter")
     e.scaName="Test ${it}"
     e.modernName="Test ${it}"
     e.scaGroup=lonelyTower.key
     e.role=UserRoles.USER.toString()
-    e.status="ACTIVE"
+    e.status="DELETED"
     e.save()
 }
 

@@ -29,8 +29,6 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.commons.lang.StringUtils;
-import org.joda.time.DateTime;
-import org.joda.time.LocalDate;
 import org.calontir.marshallate.falcon.ValidationException;
 import org.calontir.marshallate.falcon.dto.Address;
 import org.calontir.marshallate.falcon.dto.Authorization;
@@ -42,6 +40,8 @@ import org.calontir.marshallate.falcon.dto.FighterResultWrapper;
 import org.calontir.marshallate.falcon.dto.Note;
 import org.calontir.marshallate.falcon.dto.Phone;
 import org.calontir.marshallate.falcon.dto.ScaGroup;
+import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
 
 /**
  *
@@ -660,18 +660,33 @@ public class FighterDAO {
         return true;
     }
 
-    public int getTotalCount() {
-        Query query = new Query("Fighter").setKeysOnly();
+    public int getTotalCount(boolean useDeleted) {
+        Query query;
+        if (!useDeleted) {
+            final Query.Filter deleteFilter = new Query.FilterPredicate("status", Query.FilterOperator.NOT_EQUAL, "DELETED");
+            query = new Query("Fighter").setFilter(deleteFilter).setKeysOnly();
+        } else {
+            query = new Query("Fighter").setKeysOnly();
+        }
         FetchOptions fetchOptions = FetchOptions.Builder.withDefaults();
         PreparedQuery pq = datastore.prepare(query);
         return pq.countEntities(fetchOptions);
     }
 
-    public int getFighterCountInGroup(ScaGroup scaGroup) {
+    public int getFighterCountInGroup(ScaGroup scaGroup, boolean useDeleted) {
         ScaGroupDAO groupDao = new ScaGroupDAO();
         Key groupKey = groupDao.getScaGroupKey(scaGroup.getGroupName());
         Query.Filter scaGroupFilter = new Query.FilterPredicate("scaGroup", Query.FilterOperator.EQUAL, groupKey);
-        Query query = new Query("Fighter").setFilter(scaGroupFilter).setKeysOnly();
+        Query query;
+
+        if (!useDeleted) {
+            final Query.Filter deleteFilter = new Query.FilterPredicate("status", Query.FilterOperator.NOT_EQUAL, "DELETED");
+            final Query.Filter validFilter = Query.CompositeFilterOperator.and(scaGroupFilter, deleteFilter);
+            query = new Query("Fighter").setFilter(validFilter).setKeysOnly();
+        } else {
+            query = new Query("Fighter").setFilter(scaGroupFilter).setKeysOnly();
+        }
+
         FetchOptions fetchOptions = FetchOptions.Builder.withDefaults();
         PreparedQuery pq = datastore.prepare(query);
         return pq.countEntities(fetchOptions);

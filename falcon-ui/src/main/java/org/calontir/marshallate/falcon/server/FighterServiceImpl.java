@@ -107,7 +107,7 @@ public class FighterServiceImpl extends RemoteServiceServlet implements FighterS
         fighterListResults.setFighters(convert(fighterResults.getFighters()));
         fighterListResults.setCursor(newCursor);
         fighterListResults.setPageSize(pageSize);
-        fighterListResults.setCount(fighterDao.getTotalCount());
+        fighterListResults.setCount(fighterDao.getTotalCount(security.isRoleOrGreater(UserRoles.CARD_MARSHAL)));
         return fighterListResults;
     }
 
@@ -128,12 +128,13 @@ public class FighterServiceImpl extends RemoteServiceServlet implements FighterS
         fighterListResults.setFighters(convert(fighterResults.getFighters()));
         fighterListResults.setCursor(newCursor);
         fighterListResults.setPageSize(pageSize);
-        fighterListResults.setCount(fighterDao.getFighterCountInGroup(group));
+        fighterListResults.setCount(fighterDao.getFighterCountInGroup(group, security.isRoleOrGreater(UserRoles.CARD_MARSHAL)));
         return fighterListResults;
     }
 
     @Override
     public FighterListResultWrapper getFightersSortedByScaName(Integer pageSize) {
+        final Security security = SecurityFactory.getSecurity();
         final FighterDAO fighterDao = new FighterDAO();
         FighterResultWrapper fighterResults = fighterDao.getFightersSortedByScaName(pageSize);
         final String newCursor = fighterResults.getCursor().toWebSafeString();
@@ -142,12 +143,13 @@ public class FighterServiceImpl extends RemoteServiceServlet implements FighterS
         fighterListResults.setFighters(convert(fighterResults.getFighters()));
         fighterListResults.setCursor(newCursor);
         fighterListResults.setPageSize(pageSize);
-        fighterListResults.setCount(fighterDao.getTotalCount());
+        fighterListResults.setCount(fighterDao.getTotalCount(security.isRoleOrGreater(UserRoles.CARD_MARSHAL)));
         return fighterListResults;
     }
 
     @Override
     public FighterListResultWrapper getFightersSortedByScaGroup(Integer pageSize) {
+        final Security security = SecurityFactory.getSecurity();
         final FighterDAO fighterDao = new FighterDAO();
         FighterResultWrapper fighterResults = fighterDao.getFightersSortedByGroup(pageSize);
         final String newCursor = fighterResults.getCursor().toWebSafeString();
@@ -156,12 +158,13 @@ public class FighterServiceImpl extends RemoteServiceServlet implements FighterS
         fighterListResults.setFighters(convert(fighterResults.getFighters()));
         fighterListResults.setCursor(newCursor);
         fighterListResults.setPageSize(pageSize);
-        fighterListResults.setCount(fighterDao.getTotalCount());
+        fighterListResults.setCount(fighterDao.getTotalCount(security.isRoleOrGreater(UserRoles.CARD_MARSHAL)));
         return fighterListResults;
     }
 
     @Override
     public FighterListResultWrapper getFightersSortedByStatus(Integer pageSize) {
+        final Security security = SecurityFactory.getSecurity();
         final FighterDAO fighterDao = new FighterDAO();
         FighterResultWrapper fighterResults = fighterDao.getFightersSortedByStatus(pageSize);
         final String newCursor = fighterResults.getCursor().toWebSafeString();
@@ -170,7 +173,7 @@ public class FighterServiceImpl extends RemoteServiceServlet implements FighterS
         fighterListResults.setFighters(convert(fighterResults.getFighters()));
         fighterListResults.setCursor(newCursor);
         fighterListResults.setPageSize(pageSize);
-        fighterListResults.setCount(fighterDao.getTotalCount());
+        fighterListResults.setCount(fighterDao.getTotalCount(security.isRoleOrGreater(UserRoles.CARD_MARSHAL)));
         return fighterListResults;
     }
 
@@ -357,10 +360,11 @@ public class FighterServiceImpl extends RemoteServiceServlet implements FighterS
 
     @Override
     public Integer countFightersInGroup(String group) {
+        final Security security = SecurityFactory.getSecurity();
         final FighterDAO fighterDao = new FighterDAO();
         final ScaGroupDAO groupDao = new ScaGroupDAO();
         final ScaGroup scaGroup = groupDao.getScaGroupByName(group);
-        return fighterDao.getFighterCountInGroup(scaGroup);
+        return fighterDao.getFighterCountInGroup(scaGroup, security.isRoleOrGreater(UserRoles.CARD_MARSHAL));
     }
 
     @Override

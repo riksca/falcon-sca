@@ -18,3 +18,4 @@ target-eclipse
 /.nb-gradle/
 /falcon-print/cardtest.pdf
 *~
+/.nb-gradle-properties
