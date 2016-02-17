@@ -21,4 +21,8 @@
         <property name="scaGroup" direction="asc"/>
         <property name="dateOfBirth" direction="asc"/>
     </datastore-index>
+    <datastore-index kind="Fighter" ancestor="false" source="manual">
+        <property name="scaGroup" direction="asc"/>
+        <property name="status" direction="asc"/>
+    </datastore-index>
 </datastore-indexes>

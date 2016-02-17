@@ -102,6 +102,9 @@ public class Security {
     }
 
     public boolean canView(FighterInfo fighter) {
+        if (fighter == null) {
+            return false;
+        }
         return canEditFighter(fighter.getFighterId(), LookupController.getInstance().getScaGroup(fighter.getGroup()));
     }
 }

@@ -662,11 +662,11 @@ public class FighterDAO {
 
     public int getTotalCount(boolean useDeleted) {
         Query query;
-        if (!useDeleted) {
+        if (useDeleted) {
+            query = new Query("Fighter").setKeysOnly();
+        } else {
             final Query.Filter deleteFilter = new Query.FilterPredicate("status", Query.FilterOperator.NOT_EQUAL, "DELETED");
             query = new Query("Fighter").setFilter(deleteFilter).setKeysOnly();
-        } else {
-            query = new Query("Fighter").setKeysOnly();
         }
         FetchOptions fetchOptions = FetchOptions.Builder.withDefaults();
         PreparedQuery pq = datastore.prepare(query);
@@ -679,12 +679,12 @@ public class FighterDAO {
         Query.Filter scaGroupFilter = new Query.FilterPredicate("scaGroup", Query.FilterOperator.EQUAL, groupKey);
         Query query;
 
-        if (!useDeleted) {
+        if (useDeleted) {
+            query = new Query("Fighter").setFilter(scaGroupFilter).setKeysOnly();
+        } else {
             final Query.Filter deleteFilter = new Query.FilterPredicate("status", Query.FilterOperator.NOT_EQUAL, "DELETED");
             final Query.Filter validFilter = Query.CompositeFilterOperator.and(scaGroupFilter, deleteFilter);
             query = new Query("Fighter").setFilter(validFilter).setKeysOnly();
-        } else {
-            query = new Query("Fighter").setFilter(scaGroupFilter).setKeysOnly();
         }
 
         FetchOptions fetchOptions = FetchOptions.Builder.withDefaults();

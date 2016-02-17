@@ -196,11 +196,21 @@ emailEntity.emailAddress = "ct@example.com"
 emailEntity.type = "Home"
 emailEntity.save()
 
-(0..5).each {
+(0..50).each {
     def e = new Entity("Fighter")
     e.scaName="Test ${it}"
     e.modernName="Test ${it}"
-    e.scaGroup=lonelyTower.key
+    e.scaGroup=it % 2 == 0 ? forgottenSea.key : lonelyTower.key
+    e.role=UserRoles.USER.toString()
+    e.status="ACTIVE"
+    e.save()
+}
+
+(0..5).each {
+    def e = new Entity("Fighter")
+    e.scaName="Test Deleted ${it}"
+    e.modernName="Test Deleted ${it}"
+    e.scaGroup=it % 2 == 0 ? forgottenSea.key : lonelyTower.key
     e.role=UserRoles.USER.toString()
     e.status="DELETED"
     e.save()
