@@ -287,6 +287,7 @@ public class FighterCellTable extends CellTable<FighterInfo> {
                             final Range range = display.getVisibleRange();
                             int start = range.getStart();
                             prevStart = start;
+                            log.log(Level.INFO, "getFighters set count to " + result.getCount());
                             updateRowCount(result.getCount(), true);
                             updateRowData(start, result.getFighters().getFighterInfo());
                             cursor = result.getCursor();
@@ -310,6 +311,7 @@ public class FighterCellTable extends CellTable<FighterInfo> {
                             final Range range = display.getVisibleRange();
                             int start = range.getStart();
                             prevStart = start;
+                            log.log(Level.INFO, "getFightersByGroup set count to " + result.getCount());
                             updateRowCount(result.getCount(), true);
                             updateRowData(start, result.getFighters().getFighterInfo());
                             cursor = result.getCursor();
@@ -334,6 +336,7 @@ public class FighterCellTable extends CellTable<FighterInfo> {
                             final Range range = display.getVisibleRange();
                             int start = range.getStart();
                             prevStart = start;
+                            log.log(Level.INFO, "searchFighters set count to " + fil.size());
                             updateRowCount(fil.size(), true);
                             updateRowData(start, fil);
                         }
