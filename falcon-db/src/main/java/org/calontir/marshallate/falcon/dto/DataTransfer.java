@@ -12,8 +12,6 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.commons.lang.StringUtils;
-import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormat;
 import org.calontir.marshallate.falcon.common.FighterStatus;
 import org.calontir.marshallate.falcon.common.UserRoles;
 import org.calontir.marshallate.falcon.db.AuthTypeDAO;
@@ -21,6 +19,8 @@ import org.calontir.marshallate.falcon.db.NotFoundException;
 import org.calontir.marshallate.falcon.db.ScaGroupDAO;
 import org.calontir.marshallate.falcon.db.TreatyDao;
 import org.calontir.marshallate.falcon.utils.MarshalUtils;
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
 
 /**
  *
@@ -221,6 +221,8 @@ public class DataTransfer {
             Key k = null;
             if (fighter.getTreaty().getTreatyId() != null) {
                 k = treatyDao.getTreatyId(fighter.getTreaty().getTreatyId());
+            } else {
+                k = treatyDao.getTreatyKeyByName(fighter.getTreaty().getName());
             }
 
             entity.setProperty("treatyKey", k);
