@@ -19,7 +19,7 @@ dependencies {
     appengineSdk "com.google.appengine:appengine-java-sdk:${appengineSdkVersion}"
     deploy project(path: ':falcon-ui', configuration: 'archives')
     deploy project(path: ':adminb', configuration: 'archives')
-    //deploy project(path: ':api', configuration: 'archives')
+    deploy project(path: ':api', configuration: 'archives')
 }
 
 appengine {
