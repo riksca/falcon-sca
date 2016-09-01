@@ -121,7 +121,7 @@ public class Activities extends BaseReportPage {
                 nextButton.setEnabled(false);
             }
         } else {
-            p1 = "Please describe your activities as a Marshal for this quarter. Include events you have attended in general, fighter practices in which you are active, and events where you may have assisted in Marshalatte activities.";
+            p1 = "What events did you attend this quarter?";
             buildQuarterlyInfo();
             if (!activities.getHTML().isEmpty()) {
                 nextButton.setEnabled(true);
