@@ -12,52 +12,53 @@ import com.google.gwt.user.client.ui.RichTextArea;
  * @author rikscarborough
  */
 public class Summary extends BaseReportPage {
-	public static final String SUMMARY = "Summary";
-	private HTML para1 = new HTML();
 
-	@Override
-	public void buildPage() {
-		final Panel bk = new FlowPanel();
-		bk.setStylePrimaryName(REPORTBG);
+    public static final String SUMMARY = "Summary";
+    private HTML para1 = new HTML();
 
-		para1.setStylePrimaryName(REPORT_INSTRUCTIONS);
-		bk.add(para1);
+    @Override
+    public void buildPage() {
+        final Panel bk = new FlowPanel();
+        bk.setStylePrimaryName(REPORTBG);
 
-		final RichTextArea summary = new RichTextArea();
-		summary.addStyleName(REPORT_TEXT_BOX);
-		bk.add(summary);
-		addRequired(SUMMARY);
-		summary.addBlurHandler(new BlurHandler() {
+        para1.setStylePrimaryName(REPORT_INSTRUCTIONS);
+        bk.add(para1);
 
-			@Override
-			public void onBlur(BlurEvent event) {
-				addReportInfo(SUMMARY, summary.getHTML());
-			}
-		});
-		summary.addKeyPressHandler(new RequiredFieldKeyPressHandler(SUMMARY));
+        final RichTextArea summary = new RichTextArea();
+        summary.addStyleName(REPORT_TEXT_BOX);
+        bk.add(summary);
+        addRequired(SUMMARY);
+        summary.addBlurHandler(new BlurHandler() {
 
-		add(bk);
-	}
+            @Override
+            public void onBlur(BlurEvent event) {
+                addReportInfo(SUMMARY, summary.getHTML());
+            }
+        });
+        summary.addKeyPressHandler(new RequiredFieldKeyPressHandler(SUMMARY));
 
-	@Override
-	public void onDisplay() {
-		if(getReportInfo().containsKey(SUMMARY)) {
-			nextButton.setEnabled(true);
-		} else {
-			nextButton.setEnabled(false);
-		}
-		String p1;
-		String reportType = (String) getReportInfo().get("Report Type");
-		if (reportType.equals("Event")) {
-			p1 = "Enter a summary of your report for this event.";
-		} else {
-			p1 = "Enter a summary of your report for this quarter.";
-		}
-		para1.setHTML(p1);
-	}
+        add(bk);
+    }
 
-	@Override
-	public void onLeavePage() {
-	}
-	
+    @Override
+    public void onDisplay() {
+        if (getReportInfo().containsKey(SUMMARY)) {
+            nextButton.setEnabled(true);
+        } else {
+            nextButton.setEnabled(false);
+        }
+        String p1;
+        String reportType = (String) getReportInfo().get("Report Type");
+        if (reportType.equals("Event")) {
+            p1 = "Enter a summary of your report for this event.";
+        } else {
+            p1 = "Summary of Marshalatte activities.";
+        }
+        para1.setHTML(p1);
+    }
+
+    @Override
+    public void onLeavePage() {
+    }
+
 }
