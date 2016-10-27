@@ -30,6 +30,10 @@ dependencies {
 
 appengine {
     downloadSdk = true
+    appcfg {
+        oauth2 = true
+    }
+
     //jvmFlags = ['-Xms512m', '-Xmx1024m']
     //jvmFlags = ['-Xdebug', '-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=8000']
     //warDir = file('src/main/webapp')
