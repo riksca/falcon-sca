@@ -16,9 +16,14 @@ public class FighterListItem implements Serializable, Comparable<FighterListItem
     private boolean minor;
     private FighterStatus status = FighterStatus.ACTIVE;
     private String role;
+    private boolean support;
 
     public String getAuthorizations() {
         return authorizations;
+    }
+
+    public boolean isSupport() {
+        return support;
     }
 
     public void setAuthorizations(String authorizations) {
@@ -76,5 +81,9 @@ public class FighterListItem implements Serializable, Comparable<FighterListItem
     @Override
     public int compareTo(FighterListItem o) {
         return this.scaName.compareTo(o.getScaName());
+    }
+
+    public void setSupport(boolean support) {
+        this.support = support;
     }
 }

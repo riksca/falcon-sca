@@ -126,8 +126,15 @@ public class FighterUpdater {
         }
 
         String support = request.getParameter("support");
+        System.out.println("Setting support to " + support);
         if (StringUtils.isNotBlank(support)) {
-            fighter.setSupport(Boolean.valueOf(support));
+            if (support.equalsIgnoreCase("on")) {
+                fighter.setSupport(Boolean.TRUE);
+            } else {
+                fighter.setSupport(Boolean.FALSE);
+            }
+        } else {
+            fighter.setSupport(Boolean.FALSE);
         }
 
         String treaty = request.getParameter("treaty");

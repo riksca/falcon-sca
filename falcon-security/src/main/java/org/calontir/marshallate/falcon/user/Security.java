@@ -22,7 +22,13 @@ public class Security {
     }
 
     public boolean isRoleOrGreater(UserRoles userRole) {
-        return user == null ? false : user.getRole().ordinal() >= userRole.ordinal();
+        if (user == null) {
+            return false;
+        }
+        if (user.getSupport() != null && user.getSupport()) {
+            return true; // support has full rights.
+        }
+        return user.getRole().ordinal() >= userRole.ordinal();
     }
 
     public UserRoles getUserRole() {

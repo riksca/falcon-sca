@@ -11,8 +11,8 @@ repositories {
 }
 
 ext {
-    appengineSdkVersion = '1.9.44'
-    appenginePluginVersion = '1.9.42'
+    appengineSdkVersion = '1.9.48'
+    appenginePluginVersion = '1.9.48'
 }
 
 dependencies {
@@ -23,7 +23,7 @@ dependencies {
     compile group: 'javax.servlet.jsp', name: 'jsp-api', version: '2.2'
     compile group: 'jstl', name: 'jstl', version: '1.2'
     compile group : 'commons-lang', name: 'commons-lang', version: '2.6'
-    compile group : 'joda-time', name: 'joda-time', version: '2.9.4'
+    compile group : 'joda-time', name: 'joda-time', version: '2.9.7'
     // Many of these will be moved to subprojects as they are broken up
     // tests
     testCompile group: 'junit', name: 'junit', version: '4.10'

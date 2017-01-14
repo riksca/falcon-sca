@@ -1,6 +1,7 @@
 package org.calontir.marshallate.falcon.client.ui.fighterform;
 
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
+import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.Label;
 import org.calontir.marshallate.falcon.common.UserRoles;
@@ -17,14 +18,17 @@ public class SupportField extends AbstractFieldWidget {
             final CheckBox support = new CheckBox("Support");
             support.setName("support");
             support.setValue(fighter.getSupport() == null ? false : fighter.getSupport());
-            support.addValueChangeHandler((ValueChangeEvent<Boolean> event) -> {
-                fighter.setSupport(support.getValue());
+            support.addValueChangeHandler(new ValueChangeHandler<Boolean>() {
+                @Override
+                public void onValueChange(ValueChangeEvent<Boolean> event) {
+                    fighter.setSupport(event.getValue());
+                }
             });
             initWidget(support);
         } else if (fighter.getSupport() == null ? false : fighter.getSupport()) {
-            initWidget(new Label("Support"));
+            initWidget(new Label("Support Yes"));
         } else {
-            initWidget(new Label(""));
+            initWidget(new Label("Support No"));
         }
     }
 
