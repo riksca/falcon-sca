@@ -32,6 +32,7 @@ public class LoginServiceImpl extends RemoteServiceServlet implements LoginServi
                 loginInfo.setUserRole(f_ub.getRole());
                 loginInfo.setFighterId(f_ub.getFighterId());
                 loginInfo.setGroup(f_ub.getScaGroup().getGroupName());
+                loginInfo.setSupport(f_ub.getSupport());
             } else {
                 log.info(String.format("Cannot find a user for %s; Email: %s Federated Id: %s", user.getNickname(), user.getEmail(), user.getFederatedIdentity()));
             }

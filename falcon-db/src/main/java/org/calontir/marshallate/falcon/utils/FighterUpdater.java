@@ -1,14 +1,5 @@
 package org.calontir.marshallate.falcon.utils;
 
-import org.calontir.marshallate.falcon.dto.Address;
-import org.calontir.marshallate.falcon.dto.ScaGroup;
-import org.calontir.marshallate.falcon.dto.Treaty;
-import org.calontir.marshallate.falcon.dto.Note;
-import org.calontir.marshallate.falcon.dto.Email;
-import org.calontir.marshallate.falcon.dto.Fighter;
-import org.calontir.marshallate.falcon.dto.AuthType;
-import org.calontir.marshallate.falcon.dto.Authorization;
-import org.calontir.marshallate.falcon.dto.Phone;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -17,6 +8,15 @@ import org.apache.commons.lang.StringUtils;
 import org.calontir.marshallate.falcon.common.FighterStatus;
 import org.calontir.marshallate.falcon.common.UserRoles;
 import org.calontir.marshallate.falcon.db.AuthTypeDAO;
+import org.calontir.marshallate.falcon.dto.Address;
+import org.calontir.marshallate.falcon.dto.AuthType;
+import org.calontir.marshallate.falcon.dto.Authorization;
+import org.calontir.marshallate.falcon.dto.Email;
+import org.calontir.marshallate.falcon.dto.Fighter;
+import org.calontir.marshallate.falcon.dto.Note;
+import org.calontir.marshallate.falcon.dto.Phone;
+import org.calontir.marshallate.falcon.dto.ScaGroup;
+import org.calontir.marshallate.falcon.dto.Treaty;
 
 /**
  *
@@ -55,15 +55,15 @@ public class FighterUpdater {
         if (StringUtils.isNotBlank(membershipExpires)) {
             fighter.setMembershipExpires(membershipExpires);
         } else {
-			fighter.setMembershipExpires(null);
-		}
+            fighter.setMembershipExpires(null);
+        }
 
         String dob = request.getParameter("dateOfBirth");
         if (StringUtils.isNotBlank(dob)) {
             fighter.setDateOfBirth(dob);
         } else {
-			fighter.setDateOfBirth(null);
-		}
+            fighter.setDateOfBirth(null);
+        }
 
         String[] address1 = request.getParameterValues("address1");
         String[] address2 = request.getParameterValues("address2");
@@ -119,12 +119,17 @@ public class FighterUpdater {
         if (StringUtils.isNotBlank(userRole)) {
             fighter.setRole(UserRoles.valueOf(userRole));
         }
-        
+
         String fighterStatus = request.getParameter("fighterStatus");
         if (StringUtils.isNotBlank(fighterStatus)) {
             fighter.setStatus(FighterStatus.valueOf(fighterStatus));
         }
-        
+
+        String support = request.getParameter("support");
+        if (StringUtils.isNotBlank(support)) {
+            fighter.setSupport(Boolean.valueOf(support));
+        }
+
         String treaty = request.getParameter("treaty");
         if (StringUtils.isNotBlank(treaty)) {
             Treaty t = new Treaty();
@@ -133,16 +138,16 @@ public class FighterUpdater {
         } else {
             fighter.setTreaty(null);
         }
-        
+
         String note = request.getParameter("notes");
-        if(StringUtils.isNotBlank(note)) {
+        if (StringUtils.isNotBlank(note)) {
             Note fighterNote = new Note();
             fighterNote.setBody(note);
             fighterNote.setUpdated(new Date());
             fighter.setNote(fighterNote);
         } else {
-			fighter.setNote(null);
-		}
+            fighter.setNote(null);
+        }
 
         return fighter;
     }
