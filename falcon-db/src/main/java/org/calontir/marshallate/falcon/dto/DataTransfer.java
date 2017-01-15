@@ -144,6 +144,17 @@ public class DataTransfer {
             fighter.setStatus(FighterStatus.ACTIVE);
         }
 
+        if (fighterEntity.hasProperty("support")) {
+            Boolean support = (Boolean) fighterEntity.getProperty("support");
+            if (support == null) {
+                fighter.setSupport(Boolean.FALSE);
+            } else {
+                fighter.setSupport(support);
+            }
+        } else {
+            fighter.setSupport(Boolean.FALSE);
+        }
+
         if (fighterEntity.hasProperty("treatyKey")) {
             TreatyDao treatyDao = new TreatyDao();
             Key treatyKey = (Key) fighterEntity.getProperty("treatyKey");
@@ -215,6 +226,9 @@ public class DataTransfer {
         }
 
         entity.setProperty("status", fighter.getStatus().toString());
+
+        System.out.println("DataTransfer setting support to " + fighter.getSupport());
+        entity.setProperty("support", fighter.getSupport());
 
         if (fighter.getTreaty() != null) {
             TreatyDao treatyDao = new TreatyDao();

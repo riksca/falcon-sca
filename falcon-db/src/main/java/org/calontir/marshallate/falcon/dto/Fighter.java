@@ -11,52 +11,71 @@ import org.calontir.marshallate.falcon.common.UserRoles;
  */
 public class Fighter implements Serializable {
 
+    private List<Address> address;
+    private List<Authorization> authorization;
+    private String dateOfBirth;
+    private List<Email> email;
+
     private Long fighterId;
-    private String scaName;
-    private String scaMemberNo;
+    private String googleId;
     private String membershipExpires;
     private String modernName;
-    private String dateOfBirth;
-    private String googleId;
-    private List<Email> email;
-    private List<Address> address;
-    private List<Phone> phone;
-    private List<Authorization> authorization;
-    private ScaGroup scaGroup;
-    private UserRoles role;
-    private FighterStatus status = FighterStatus.ACTIVE;
-    private Treaty treaty;
     private Note note;
+    private List<Phone> phone;
+    private UserRoles role;
+    private ScaGroup scaGroup;
+    private String scaMemberNo;
+    private String scaName;
+    private FighterStatus status = FighterStatus.ACTIVE;
+    private Boolean support;
 
-    public Address getPrimeAddress() {
-        if (address == null || address.isEmpty()) {
-            return null;
-        }
-        return address.get(0);
-    }
+    private Treaty treaty;
 
     public List<Address> getAddress() {
         return address;
-    }
-
-    public void setAddress(List<Address> address) {
-        this.address = address;
     }
 
     public List<Authorization> getAuthorization() {
         return authorization;
     }
 
-    public void setAuthorization(List<Authorization> authorization) {
-        this.authorization = authorization;
-    }
-
     public String getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(String dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
+    public List<Email> getEmail() {
+        return email;
+    }
+
+    public Long getFighterId() {
+        return fighterId;
+    }
+
+    public String getGoogleId() {
+        return googleId;
+    }
+
+    public String getMembershipExpires() {
+        return membershipExpires;
+    }
+
+    public String getModernName() {
+        return modernName;
+    }
+
+    public Note getNote() {
+        return note;
+    }
+
+    public List<Phone> getPhone() {
+        return phone;
+    }
+
+    public Address getPrimeAddress() {
+        if (address == null || address.isEmpty()) {
+            return null;
+        }
+        return address.get(0);
     }
 
     public Email getPrimeEmail() {
@@ -66,38 +85,6 @@ public class Fighter implements Serializable {
         return email.get(0);
     }
 
-    public List<Email> getEmail() {
-        return email;
-    }
-
-    public void setEmail(List<Email> email) {
-        this.email = email;
-    }
-
-    public Long getFighterId() {
-        return fighterId;
-    }
-
-    public void setFighterId(Long fighterId) {
-        this.fighterId = fighterId;
-    }
-
-    public String getGoogleId() {
-        return googleId;
-    }
-
-    public void setGoogleId(String googleId) {
-        this.googleId = googleId;
-    }
-
-    public String getModernName() {
-        return modernName;
-    }
-
-    public void setModernName(String modernName) {
-        this.modernName = modernName;
-    }
-
     public Phone getPrimePhone() {
         if (phone == null || phone.isEmpty()) {
             return null;
@@ -105,72 +92,96 @@ public class Fighter implements Serializable {
         return phone.get(0);
     }
 
-    public List<Phone> getPhone() {
-        return phone;
-    }
-
-    public void setPhone(List<Phone> phone) {
-        this.phone = phone;
+    public UserRoles getRole() {
+        return role;
     }
 
     public ScaGroup getScaGroup() {
         return scaGroup;
     }
 
-    public void setScaGroup(ScaGroup scaGroup) {
-        this.scaGroup = scaGroup;
-    }
-
     public String getScaMemberNo() {
         return scaMemberNo;
-    }
-
-    public void setScaMemberNo(String scaMemberNo) {
-        this.scaMemberNo = scaMemberNo;
-    }
-
-    public String getMembershipExpires() {
-        return membershipExpires;
-    }
-
-    public void setMembershipExpires(String membershipExpires) {
-        this.membershipExpires = membershipExpires;
     }
 
     public String getScaName() {
         return scaName;
     }
 
-    public void setScaName(String scaName) {
-        this.scaName = scaName;
-    }
-
-    public UserRoles getRole() {
-        return role;
-    }
-
-    public void setRole(UserRoles role) {
-        this.role = role;
-    }
-
     public FighterStatus getStatus() {
         return status;
     }
 
-    public void setStatus(FighterStatus status) {
-        this.status = status;
+    public Boolean getSupport() {
+        return support;
     }
 
-    public Note getNote() {
-        return note;
+    public Treaty getTreaty() {
+        return treaty;
+    }
+
+    public void setAddress(List<Address> address) {
+        this.address = address;
+    }
+
+    public void setAuthorization(List<Authorization> authorization) {
+        this.authorization = authorization;
+    }
+
+    public void setDateOfBirth(String dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public void setEmail(List<Email> email) {
+        this.email = email;
+    }
+
+    public void setFighterId(Long fighterId) {
+        this.fighterId = fighterId;
+    }
+
+    public void setGoogleId(String googleId) {
+        this.googleId = googleId;
+    }
+
+    public void setMembershipExpires(String membershipExpires) {
+        this.membershipExpires = membershipExpires;
+    }
+
+    public void setModernName(String modernName) {
+        this.modernName = modernName;
     }
 
     public void setNote(Note note) {
         this.note = note;
     }
 
-    public Treaty getTreaty() {
-        return treaty;
+    public void setPhone(List<Phone> phone) {
+        this.phone = phone;
+    }
+
+    public void setRole(UserRoles role) {
+        this.role = role;
+    }
+
+    public void setScaGroup(ScaGroup scaGroup) {
+        this.scaGroup = scaGroup;
+    }
+
+    public void setScaMemberNo(String scaMemberNo) {
+        this.scaMemberNo = scaMemberNo;
+    }
+
+    public void setScaName(String scaName) {
+        this.scaName = scaName;
+    }
+
+    public void setStatus(FighterStatus status) {
+        this.status = status;
+    }
+
+    public void setSupport(Boolean support) {
+        this.support = support;
     }
 
     public void setTreaty(Treaty treaty) {
@@ -179,6 +190,7 @@ public class Fighter implements Serializable {
 
     @Override
     public String toString() {
-        return "Fighter{" + "fighterId=" + fighterId + ", scaName=" + scaName + ", scaMemberNo=" + scaMemberNo + ", modernName=" + modernName + ", dateOfBirth=" + dateOfBirth + ", googleId=" + googleId + ", email=" + email + ", address=" + address + ", phone=" + phone + ", authorization=" + authorization + ", scaGroup=" + scaGroup + ", role=" + role + ", status=" + status + ", treaty=" + treaty + ", note=" + note + '}';
+        return "Fighter{" + "address=" + address + ", authorization=" + authorization + ", dateOfBirth=" + dateOfBirth + ", email=" + email + ", fighterId=" + fighterId + ", googleId=" + googleId + ", membershipExpires=" + membershipExpires + ", modernName=" + modernName + ", note=" + note + ", phone=" + phone + ", role=" + role + ", scaGroup=" + scaGroup + ", scaMemberNo=" + scaMemberNo + ", scaName=" + scaName + ", status=" + status + ", support=" + support + ", treaty=" + treaty + '}';
     }
+
 }

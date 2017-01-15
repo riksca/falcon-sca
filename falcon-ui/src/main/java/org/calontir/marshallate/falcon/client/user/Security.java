@@ -48,6 +48,9 @@ public class Security {
         if (loginInfo == null || loginInfo.getUserRole() == null) {
             return false;
         }
+        if (loginInfo.getSupport() != null && loginInfo.getSupport()) {
+            return true; // support has full rights.
+        }
         return loginInfo.getUserRole().ordinal() >= userRole.ordinal();
     }
 

@@ -75,6 +75,7 @@ public class FighterServiceImpl extends RemoteServiceServlet implements FighterS
                 info.setStatus(fli.getStatus() == null ? "" : fli.getStatus().toString());
                 info.setMinor(fli.isMinor());
                 info.setRole(fli.getRole() == null ? "" : fli.getRole());
+                info.setSupport(fli.isSupport());
                 retValList.add(info);
             }
         }
@@ -275,7 +276,7 @@ public class FighterServiceImpl extends RemoteServiceServlet implements FighterS
 
         try {
             final URL url = new URL("http://"
-                    + modulesApi.getVersionHostname("adminb", "2.0")
+                    + modulesApi.getDefaultVersion("adminb")
                     + "/BuildReport.groovy");
             log("Sending report to " + url.toString());
             final HttpURLConnection connection

@@ -36,6 +36,7 @@ import org.calontir.marshallate.falcon.client.FighterServiceAsync;
 import org.calontir.marshallate.falcon.client.ui.fighterform.AuthorizationsField;
 import org.calontir.marshallate.falcon.client.ui.fighterform.FighterForm;
 import org.calontir.marshallate.falcon.client.ui.fighterform.ScaNameField;
+import org.calontir.marshallate.falcon.client.ui.fighterform.SupportField;
 import org.calontir.marshallate.falcon.client.user.Security;
 import org.calontir.marshallate.falcon.client.user.SecurityFactory;
 import org.calontir.marshallate.falcon.common.FighterStatus;
@@ -332,6 +333,7 @@ public class FighterFormWidget extends Composite implements EditViewHandler, For
         adminFormatter.setStyleName(1, 1, "data");
 
         adminInfo.add(adminTable);
+        adminInfo.add(new SupportField(fighter, edit));
 
         return adminInfo;
     }

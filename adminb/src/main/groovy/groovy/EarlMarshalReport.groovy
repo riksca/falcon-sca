@@ -7,7 +7,7 @@ import groovy.xml.MarkupBuilder
 import org.calontir.marshallate.falcon.service.FighterService
 
 
-logger.StoreDatabase.info "Earl Marshal Report"
+logger.EarlMarshalReport.info "Earl Marshal Report"
 
 def service = new FighterService()
 def fighterCount = service.fighterCount()

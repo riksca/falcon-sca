@@ -15,9 +15,14 @@ public class FighterInfo implements Serializable {
     private String status;
     private Boolean minor;
     private String role;
+    private Boolean support;
 
     public String getScaName() {
         return scaName;
+    }
+
+    public Boolean getSupport() {
+        return support;
     }
 
     public void setScaName(String scaName) {
@@ -76,8 +81,13 @@ public class FighterInfo implements Serializable {
         this.role = role;
     }
 
+    public void setSupport(Boolean support) {
+        this.support = support;
+    }
+
     @Override
     public String toString() {
-        return "FighterInfo{" + "fighterId=" + fighterId + ", scaName=" + scaName + ", authorizations=" + authorizations + ", group=" + group + ", status=" + status + ", minor=" + minor + ", role=" + role + '}';
+        return "FighterInfo{" + "fighterId=" + fighterId + ", scaName=" + scaName + ", authorizations=" + authorizations + ", group=" + group + ", status=" + status + ", minor=" + minor + ", role=" + role + ", support=" + support + '}';
     }
+
 }
