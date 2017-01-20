@@ -154,7 +154,7 @@ public class CardMaker {
         cell.setHorizontalAlignment(Element.ALIGN_JUSTIFIED);
         table.addCell(cell);
 
-        cell = new PdfPCell(new Phrase(String.format("Signed and Authorized by the hand of Honorable Lord Jawhar ibn Akmal el Gazi, the Calontir Marshal of Cards on this day %s.\n\n",
+        cell = new PdfPCell(new Phrase(String.format("Signed and Authorized by the hand of Honorable Lord Jawhar ibn Akmel el Ghazi, the Calontir Marshal of Cards on this day %s.\n\n",
                 new DateTime().toString("MM/dd/yyyy")), normalFont));
         cell.setBorder(Rectangle.NO_BORDER);
         cell.setPaddingLeft(padding);
@@ -321,7 +321,7 @@ public class CardMaker {
             p.add(new Phrase(String.format("SCA Name: %s\n", fighter.getScaName()), smallFont));
         }
         p.add(new Phrase(String.format("Date Issued: %s  Expires: %s\n", startDate.toString("MM/dd/yyyy"), endDate.toString("MM/dd/yyyy")), smallFont));
-        p.add(new Phrase(String.format("Issuing Official: %s\n", "Honorable Lord Jawhar ibn Akmal el Gazi"), smallFont));
+        p.add(new Phrase(String.format("Issuing Official: %s\n", "Honorable Lord Jawhar ibn Akmel el Ghazi"), smallFont));
         cell = new PdfPCell(p);
         //cell.setExtraParagraphSpace(1.5f);
         cell.setBorder(Rectangle.TOP + Rectangle.BOTTOM);
