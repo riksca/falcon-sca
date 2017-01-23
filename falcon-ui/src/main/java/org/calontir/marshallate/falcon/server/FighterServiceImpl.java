@@ -275,8 +275,9 @@ public class FighterServiceImpl extends RemoteServiceServlet implements FighterS
         final ModulesService modulesApi = ModulesServiceFactory.getModulesService();
 
         try {
+            final String version = modulesApi.getDefaultVersion("adminb");
             final URL url = new URL("http://"
-                    + modulesApi.getDefaultVersion("adminb")
+                    + modulesApi.getVersionHostname("adminb", version)
                     + "/BuildReport.groovy");
             log("Sending report to " + url.toString());
             final HttpURLConnection connection
