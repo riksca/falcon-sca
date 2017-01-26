@@ -119,9 +119,9 @@ public class SearchBar extends Composite implements DataUpdatedEventHandler, Sea
                     ScaGroup scaGroup = LookupController.getInstance().getScaGroup(group.getValue(group.getSelectedIndex()));
                     if (scaGroup == null) {
                         Shout.getInstance().tell("An error has occured in looking up your group.  Please reload and try again.  If this error continues, contact support.");
-                        logger.log(Level.SEVERE, "Error changing group to {0}", group.getValue(group.getSelectedIndex()));
+                        logger.log(Level.SEVERE, "Error changing group to " + group.getValue(group.getSelectedIndex()));
                     } else {
-                        logger.log(Level.INFO, "Changing group to {0}", scaGroup.getGroupName());
+                        logger.log(Level.INFO, "Changing group to " + scaGroup.getGroupName());
                         fireEvent(new SearchEvent(scaGroup));
                     }
                 }
