@@ -54,6 +54,18 @@ public class Security {
         return loginInfo.getUserRole().ordinal() >= userRole.ordinal();
     }
 
+    public boolean isSupport() {
+        if (loginInfo == null) {
+            return false;
+        }
+
+        if (loginInfo.getSupport() != null && loginInfo.getSupport()) {
+            return true;
+        }
+
+        return false;
+    }
+
     public boolean canEditAuthorizations(Long fighterId) {
         if (loginInfo == null) {
             return false;

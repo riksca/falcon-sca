@@ -17,6 +17,7 @@ import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.RadioButton;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.calontir.marshallate.falcon.client.FighterInfo;
 import org.calontir.marshallate.falcon.client.ui.SearchEvent.SearchType;
@@ -116,8 +117,13 @@ public class SearchBar extends Composite implements DataUpdatedEventHandler, Sea
                 @Override
                 public void onChange(ChangeEvent event) {
                     ScaGroup scaGroup = LookupController.getInstance().getScaGroup(group.getValue(group.getSelectedIndex()));
-                    logger.info("Changing group to " + scaGroup.getGroupName());
-                    fireEvent(new SearchEvent(scaGroup));
+                    if (scaGroup == null) {
+                        Shout.getInstance().tell("An error has occured in looking up your group.  Please reload and try again.  If this error continues, contact support.");
+                        logger.log(Level.SEVERE, "Error changing group to " + group.getValue(group.getSelectedIndex()));
+                    } else {
+                        logger.log(Level.INFO, "Changing group to " + scaGroup.getGroupName());
+                        fireEvent(new SearchEvent(scaGroup));
+                    }
                 }
             });
         }

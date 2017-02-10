@@ -57,7 +57,15 @@ public class LookupController {
     }
 
     public ScaGroup getScaGroup(String name) {
+        if (name == null || name.isEmpty()) {
+            log.log(Level.SEVERE, "searching for empty group");
+            return null;
+        }
         for (ScaGroup group : scaGroups) {
+            if (group == null || group.getGroupName() == null) {
+                log.log(Level.SEVERE, "group in list is null");
+                continue;
+            }
             if (name.equals(group.getGroupName())) {
                 return group;
             }
