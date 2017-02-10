@@ -27,7 +27,6 @@ import org.calontir.marshallate.falcon.client.FighterServiceAsync;
 import org.calontir.marshallate.falcon.client.user.Security;
 import org.calontir.marshallate.falcon.client.user.SecurityFactory;
 import org.calontir.marshallate.falcon.common.ReportingMarshalType;
-import org.calontir.marshallate.falcon.common.UserRoles;
 import org.calontir.marshallate.falcon.dto.Report;
 
 /**
@@ -128,8 +127,8 @@ public class ReportView extends Composite {
                     + "Report Marshal Type: " + rmt.getValue() + " <<>> "
                     + "Report Type: " + r.getReportType() + " <<>> "
                     + (r.getReportType().toLowerCase().equals("event")
-                            ? "Event Name: " + r.getReportParams().get("Event Name")
-                            : "Marshal Type: " + r.getReportParams().get("Marshal Type")) + " <<>> "
+                    ? "Event Name: " + r.getReportParams().get("Event Name")
+                    : "Marshal Type: " + r.getReportParams().get("Marshal Type")) + " <<>> "
                     + "Date Entered: "
                     + DateTimeFormat.getFormat(DateTimeFormat.PredefinedFormat.DATE_TIME_MEDIUM).format(r.getDateEntered());
 
@@ -138,7 +137,7 @@ public class ReportView extends Composite {
             twisty.getHeader().getElement().getStyle().setBackgroundColor("white");
             Panel content = new FlowPanel();
             Anchor deleteButton = null;
-            if (security.isRole(UserRoles.CARD_MARSHAL)) {
+            if (security.isSupport()) {
                 deleteButton = new Anchor("Delete");
                 deleteButton.addStyleName("buttonLink");
                 deleteButton.addClickHandler(new ClickHandler() {
