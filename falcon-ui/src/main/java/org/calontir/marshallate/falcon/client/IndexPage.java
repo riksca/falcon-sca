@@ -222,7 +222,7 @@ public class IndexPage implements EntryPoint {
         }
 
         final Anchor register = new Anchor("Not registered? Sign up now!");
-        register.setHref("https://docs.google.com/spreadsheet/viewform?formkey=dEhpX0tCWmhGRU9tNjF4OVdtTjZpcHc6MQ");
+        register.setHref("https://docs.google.com/forms/d/1VljA8TeCnyE8e3UDaHsbRBMGeyVRO4AbPSztDIge5xs/edit");
         register.getElement().getStyle().setFloat(Style.Float.RIGHT);
         innerSignupPanel.add(register);
 
