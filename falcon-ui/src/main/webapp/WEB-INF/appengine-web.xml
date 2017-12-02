@@ -16,6 +16,7 @@
         <handler file="default_error.html"/>
         <handler file="over_quota.html" error-code="over_quota"/>
     </static-error-handlers>
+    <runtime>java8</runtime>
 
     <static-files>
         <exclude path="/WEB-INF/**.groovy" />
