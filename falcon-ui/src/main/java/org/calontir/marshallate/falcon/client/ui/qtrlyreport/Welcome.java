@@ -53,31 +53,10 @@ public class Welcome extends BaseReportPage {
 
         Panel marshalTypePanel = new HorizontalPanel();
         marshalTypePanel.setStylePrimaryName(REPORT_BUTTON_PANEL);
-
-        final RadioButton armoredCombatButton = new RadioButton("marshalType", ReportingMarshalType.ARMORED_COMBAT.getValue());
-        armoredCombatButton.addValueChangeHandler(new ValueChangeHandler<Boolean>() {
-            @Override
-            public void onValueChange(ValueChangeEvent<Boolean> event) {
-                if (event.getValue()) {
-                    addReportInfo("Reporting Marshal Type", ReportingMarshalType.ARMORED_COMBAT.getCode());
-                }
-            }
-        });
-        armoredCombatButton.setValue(Boolean.TRUE, true);
-        marshalTypePanel.add(armoredCombatButton);
-
-        final RadioButton calonSteelButton = new RadioButton("marshalType", ReportingMarshalType.CALON_STEEL.getValue());
-        calonSteelButton.addValueChangeHandler(new ValueChangeHandler<Boolean>() {
-            @Override
-            public void onValueChange(ValueChangeEvent<Boolean> event) {
-                if (event.getValue()) {
-                    addReportInfo("Reporting Marshal Type", ReportingMarshalType.CALON_STEEL.getCode());
-                }
-            }
-        });
-        calonSteelButton.setValue(Boolean.FALSE, true);
-        marshalTypePanel.add(calonSteelButton);
-
+        // Marshal Type buttons
+        armoredCombatButton(marshalTypePanel);
+        calonSteelButton(marshalTypePanel);
+        equestrianButton(marshalTypePanel);
         bk.add(marshalTypePanel);
 
         int quarter = getQuarter();
@@ -162,6 +141,49 @@ public class Welcome extends BaseReportPage {
         bk.add(eventButtonPanel);
 
         add(bk);
+    }
+
+    private void equestrianButton(Panel marshalTypePanel) {
+        final RadioButton button = new RadioButton("marshalType", ReportingMarshalType.EQUESTRIAN.getValue());
+        button.addValueChangeHandler(new ValueChangeHandler<Boolean>() {
+            @Override
+            public void onValueChange(ValueChangeEvent<Boolean> event) {
+                if (event.getValue()) {
+                    addReportInfo("Reporting Marshal Type", ReportingMarshalType.EQUESTRIAN.getCode());
+                }
+            }
+        });
+        button.setValue(Boolean.FALSE, true);
+        marshalTypePanel.add(button);
+    }
+
+
+    private void calonSteelButton(Panel marshalTypePanel) {
+        final RadioButton calonSteelButton = new RadioButton("marshalType", ReportingMarshalType.CALON_STEEL.getValue());
+        calonSteelButton.addValueChangeHandler(new ValueChangeHandler<Boolean>() {
+            @Override
+            public void onValueChange(ValueChangeEvent<Boolean> event) {
+                if (event.getValue()) {
+                    addReportInfo("Reporting Marshal Type", ReportingMarshalType.CALON_STEEL.getCode());
+                }
+            }
+        });
+        calonSteelButton.setValue(Boolean.FALSE, true);
+        marshalTypePanel.add(calonSteelButton);
+    }
+
+    private void armoredCombatButton(Panel marshalTypePanel) {
+        final RadioButton armoredCombatButton = new RadioButton("marshalType", ReportingMarshalType.ARMORED_COMBAT.getValue());
+        armoredCombatButton.addValueChangeHandler(new ValueChangeHandler<Boolean>() {
+            @Override
+            public void onValueChange(ValueChangeEvent<Boolean> event) {
+                if (event.getValue()) {
+                    addReportInfo("Reporting Marshal Type", ReportingMarshalType.ARMORED_COMBAT.getCode());
+                }
+            }
+        });
+        armoredCombatButton.setValue(Boolean.TRUE, true);
+        marshalTypePanel.add(armoredCombatButton);
     }
 
     @SuppressWarnings("deprecation")
