@@ -3,7 +3,7 @@
 //
 apply plugin: 'java'
 
-sourceCompatibility = '1.7'
+sourceCompatibility = '1.8'
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 
 repositories {
@@ -11,8 +11,8 @@ repositories {
 }
 
 ext {
-    appengineSdkVersion = '1.9.54'
-    appenginePluginVersion = '1.9.54'
+    appengineSdkVersion = '1.9.59'
+    appenginePluginVersion = '1.9.59'
 }
 
 dependencies {

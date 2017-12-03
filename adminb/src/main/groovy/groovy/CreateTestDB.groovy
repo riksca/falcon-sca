@@ -85,6 +85,13 @@ se.description = "Siege Engines"
 se.orderValue = ++i
 se.save()
 
+def eq = new Entity("AuthType")
+eq.code = "EQ"
+eq.description = "Equestrian"
+eq.orderValue = ++i
+eq.save()
+
+
 def json = """
 """
 
@@ -150,6 +157,11 @@ authEntity.save()
 
 authEntity = new Entity("Authorization", fighter.key);
 authEntity.authType = tw.key
+authEntity.date = new Date()
+authEntity.save()
+
+authEntity = new Entity("Authorization", fighter.key);
+authEntity.authType = eq.key
 authEntity.date = new Date()
 authEntity.save()
 

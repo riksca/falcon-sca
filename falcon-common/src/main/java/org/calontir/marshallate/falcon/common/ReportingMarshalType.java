@@ -8,7 +8,7 @@ import java.io.Serializable;
  */
 public enum ReportingMarshalType implements Serializable {
 
-    ARMORED_COMBAT("AC", "Armored Combat"), CALON_STEEL("CS", "Calon Steel");
+    ARMORED_COMBAT("AC", "Armored Combat"), CALON_STEEL("CS", "Calon Steel"), EQUESTRIAN("EQ", "Equestrian");
 
     private final String code;
     private final String value;
