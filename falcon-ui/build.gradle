@@ -13,10 +13,6 @@ buildscript {
     }
 }
 
-war {
-    archiveName 'falcon-ui-2.0.war'
-}
-
 gwt {
     gwtVersion='2.8.2'
     modules 'org.calontir.marshallate.falcon.Fighter'
@@ -64,7 +60,8 @@ appengineStage.dependsOn test
 
 appengine {  // App Engine tasks configuration
   deploy {   // deploy configuration
-
+      version = 'v3-0-0'
+      project = "falcon-sca"
   }
 }
 
