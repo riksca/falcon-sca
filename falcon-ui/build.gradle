@@ -59,9 +59,14 @@ appengineDeploy.dependsOn test
 appengineStage.dependsOn test
 
 appengine {  // App Engine tasks configuration
+  run {
+    port = 8080
+  }
   deploy {   // deploy configuration
-      version = 'v3-0-0'
+      version = 'v3-0-1'
       project = "falcon-sca"
+      promote = false
+      stopPreviousVersion = false
   }
 }
 
