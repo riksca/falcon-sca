@@ -1,6 +1,6 @@
 apply plugin: 'war'
 apply plugin: 'gwt'
-apply plugin: 'appengine'
+apply plugin: 'com.google.cloud.tools.appengine'
 
 buildscript {
     repositories {
@@ -8,8 +8,8 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'de.richsource.gradle.plugins:gwt-gradle-plugin:0.6'
-        classpath "com.google.appengine:gradle-appengine-plugin:${appenginePluginVersion}"
+        classpath 'com.google.cloud.tools:appengine-gradle-plugin:+'
+        classpath 'de.richsource.gradle.plugins:gwt-gradle-plugin:+'
     }
 }
 
@@ -18,7 +18,7 @@ war {
 }
 
 gwt {
-    gwtVersion='2.8.0'
+    gwtVersion='2.8.2'
     modules 'org.calontir.marshallate.falcon.Fighter'
     minHeapSize = "512M";
     maxHeapSize = "1024M";
@@ -42,16 +42,48 @@ dependencies {
     compile project (':falcon-db')
     compile project (':falcon-security')
     compile project (':falcon-print')
-    compile group: 'com.google.gwt', name: 'gwt-servlet', version: '2.8.0'
-    compile group: 'com.google.gwt', name: 'gwt-user', version: '2.8.0'
-    appengineSdk "com.google.appengine:appengine-java-sdk:${appengineSdkVersion}"
+    compile group: 'com.google.gwt', name: 'gwt-servlet', version: '2.8.2'
+    compile group: 'com.google.gwt', name: 'gwt-user', version: '2.8.2'
+    compile "com.google.appengine:appengine-api-1.0-sdk:+"
+    providedCompile 'javax.servlet:javax.servlet-api:3.1.0'
+
+    compile 'jstl:jstl:1.2'
+    testCompile 'junit:junit:4.12'
+    testCompile 'com.google.truth:truth:0.33'
+    testCompile 'org.mockito:mockito-all:1.10.19'
+
+    testCompile 'com.google.appengine:appengine-testing:+'
+    testCompile 'com.google.appengine:appengine-api-stubs:+'
+    testCompile 'com.google.appengine:appengine-tools-sdk:+'
     //gwt  project: ':falcon-db', classifier: 'sources'
 }
 
-appengine {
-    downloadSdk = true
-    appcfg {
-        oauth2 = true
-    }
-    //jvmFlags = ['-Xms512m', '-Xmx1024m']
+// Always run unit tests
+appengineDeploy.dependsOn test
+appengineStage.dependsOn test
+
+appengine {  // App Engine tasks configuration
+  deploy {   // deploy configuration
+
+  }
 }
+
+test {
+  useJUnit()
+  testLogging.showStandardStreams = true
+  beforeTest { descriptor ->
+     logger.lifecycle("test: " + descriptor + "  Running")
+  }
+
+  onOutput { descriptor, event ->
+     logger.lifecycle("test: " + descriptor + ": " + event.message )
+  }
+  afterTest { descriptor, result ->
+    logger.lifecycle("test: " + descriptor + ": " + result )
+  }
+}
+group   = "org.calontir.marshallate.falcon"        // Generated output GroupId
+// version = "1.0-SNAPSHOT"       // Version in generated output
+
+sourceCompatibility = 1.8     // App Engine Flexible uses Java 8
+targetCompatibility = 1.8     // App Engine Flexible uses Ja

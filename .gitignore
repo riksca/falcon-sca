@@ -19,3 +19,9 @@ target-eclipse
 /falcon-print/cardtest.pdf
 *~
 /.nb-gradle-properties
+falcon-common/bin
+falcon-db/bin
+falcon-ear/bin
+falcon-print/bin
+falcon-security/bin
+falcon-ui
