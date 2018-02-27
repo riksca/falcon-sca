@@ -1,6 +1,5 @@
 apply plugin: 'war'
-apply plugin: 'appengine'
-//apply plugin: 'gaelyk'
+apply plugin: 'com.google.cloud.tools.appengine'
 apply plugin: 'groovy'
 
 buildscript {
@@ -9,13 +8,11 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath "com.google.appengine:gradle-appengine-plugin:${appenginePluginVersion}"
-        //classpath "org.gradle.api.plugins:gradle-gaelyk-plugin:0.6"
+        classpath 'com.google.cloud.tools:appengine-gradle-plugin:+'
     }
 }
 
 war {
-    archiveName 'adminb-2.0.war'
     webInf { from 'src/main/groovy' }
 }
 
@@ -29,24 +26,28 @@ dependencies {
     compile project (':falcon-common')
     compile project (':falcon-db')
     compile project (':falcon-security')
-    appengineSdk "com.google.appengine:appengine-java-sdk:${appengineSdkVersion}"
+    compile "com.google.appengine:appengine-api-1.0-sdk:+"
+    compile "com.google.appengine.tools:appengine-gcs-client:+"
 
-    //compile 'net.sf.opencsv:opencsv:2.3'
-    compile 'org.codehaus.groovy:groovy-all:2.4.6'
+    compile 'org.codehaus.groovy:groovy-all:2.4.9'
     compile 'net.sf.opencsv:opencsv:2.3'
 
     compile group: 'org.gaelyk', name: 'gaelyk', version: gaelykVersion
-    compile group: 'com.google.appengine.tools', name: 'appengine-gcs-client', version: '0.4.4'
+    //compile group: 'com.google.appengine.tools', name: 'appengine-gcs-client', version: '0.4.4'
     //compile "com.google.appengine:appengine-api-1.0-sdk:$appengineSdkVersion",
     //        "com.google.appengine:appengine-api-labs:$appengineSdkVersion"
 }
 
-appengine {
-    downloadSdk = true
-    appcfg {
-        oauth2 = true
-    }
-    //jvmFlags = ['-Xms512m', '-Xmx1024m']
-    //jvmFlags = ['-Xdebug', '-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=8000']
-    //warDir = file('src/main/webapp')
+appengine {  // App Engine tasks configuration
+  run {
+    port = 8080
+  }
+  deploy {   // deploy configuration
+      version = 'v2-1-0'
+      project = "falcon-sca"
+      promote = false
+      stopPreviousVersion = false
+  }
 }
+sourceCompatibility = 1.8     // App Engine Flexible uses Java 8
+targetCompatibility = 1.8     // App Engine Flexible uses Ja

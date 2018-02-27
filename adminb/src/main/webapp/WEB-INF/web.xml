@@ -38,12 +38,4 @@
         <dispatcher>FORWARD</dispatcher>
         <dispatcher>REQUEST</dispatcher>
     </filter-mapping>
-    <servlet>
-        <servlet-name>remoteLogging</servlet-name>
-        <servlet-class>com.google.gwt.logging.server.RemoteLoggingServiceImpl</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>remoteLogging</servlet-name>
-        <url-pattern>/fighter/remote_logging</url-pattern>
-    </servlet-mapping>
 </web-app>

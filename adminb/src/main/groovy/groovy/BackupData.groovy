@@ -213,6 +213,10 @@ Thread thread = ThreadManager.createBackgroundThread(new Runnable() {
             def root = json {
                 dateBackedUp String.format('%tF %<tT', now.time)
                 fighters mapList
+            }
+            def reportJson = new groovy.json.JsonBuilder()
+            def reportRoot = reportJson {
+                dateBackedUp String.format('%tF %<tT', now.time)
                 reports reportList
             }
 
@@ -229,6 +233,16 @@ Thread thread = ThreadManager.createBackgroundThread(new Runnable() {
 
             GcsOutputChannel writeChannel = gcsService.createOrReplace(filename, options);
             writeChannel.write(ByteBuffer.wrap(json.toString().getBytes("UTF8")));
+            writeChannel.close();
+
+            GcsFilename reportFilename = new GcsFilename("falcon-sca.appspot.com", String.format("reports%tY%tm%td.json", now, now, now));
+            GcsFileOptions reportOptions = new GcsFileOptions.Builder()
+            .mimeType("text/html")
+            .acl("public-read")
+            .addUserMetadata("calontir_reports.backup", String.format("reports%tY%tm%td.json", now, now, now))
+            .build();
+            writeChannel = gcsService.createOrReplace(reportFilename, reportOptions);
+            writeChannel.write(ByteBuffer.wrap(reportJson.toString().getBytes("UTF8")));
             writeChannel.close();
 
             namespace.of("system") {
