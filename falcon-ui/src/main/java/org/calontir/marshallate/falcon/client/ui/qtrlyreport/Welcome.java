@@ -134,6 +134,26 @@ public class Welcome extends BaseReportPage {
             public void onValueChange(ValueChangeEvent<Boolean> event) {
                 if (event.getValue()) {
                     addReportInfo("Report Type", "Event");
+                    for (int i = getDeck().getWidgetCount(); i > 1; --i) {
+                        getDeck().remove(i - 1);
+                    }
+
+                    PersonalInfo pi = new PersonalInfo();
+                    pi.init(reportInfo, required, submitButton, nextButton);
+                    pi.getElement().setId("personalinfo");
+                    getDeck().add(pi);
+
+                    Activities activities = new Activities();
+                    activities.init(reportInfo, required, submitButton, nextButton);
+                    getDeck().add(activities);
+
+                    Summary summary = new Summary();
+                    summary.init(reportInfo, required, submitButton, nextButton);
+                    getDeck().add(summary);
+
+                    Final finalPage = new Final();
+                    finalPage.init(reportInfo, required, submitButton, nextButton);
+                    getDeck().add(finalPage);
                 }
             }
         });
@@ -150,13 +170,28 @@ public class Welcome extends BaseReportPage {
             public void onValueChange(ValueChangeEvent<Boolean> event) {
                 if (event.getValue()) {
                     addReportInfo("Reporting Marshal Type", ReportingMarshalType.EQUESTRIAN.getCode());
+                    for (int i = getDeck().getWidgetCount(); i > 1; --i) {
+                        getDeck().remove(i - 1);
+                    }
+
+                    PersonalInfo pi = new PersonalInfo();
+                    pi.init(reportInfo, required, submitButton, nextButton);
+                    pi.getElement().setId("personalinfo");
+                    getDeck().add(pi);
+
+                    Summary summary = new Summary();
+                    summary.init(reportInfo, required, submitButton, nextButton);
+                    getDeck().add(summary);
+
+                    Final finalPage = new Final();
+                    finalPage.init(reportInfo, required, submitButton, nextButton);
+                    getDeck().add(finalPage);
                 }
             }
         });
         button.setValue(Boolean.FALSE, true);
         marshalTypePanel.add(button);
     }
-
 
     private void calonSteelButton(Panel marshalTypePanel) {
         final RadioButton calonSteelButton = new RadioButton("marshalType", ReportingMarshalType.CALON_STEEL.getValue());
@@ -165,6 +200,26 @@ public class Welcome extends BaseReportPage {
             public void onValueChange(ValueChangeEvent<Boolean> event) {
                 if (event.getValue()) {
                     addReportInfo("Reporting Marshal Type", ReportingMarshalType.CALON_STEEL.getCode());
+                    for (int i = getDeck().getWidgetCount(); i > 1; --i) {
+                        getDeck().remove(i - 1);
+                    }
+
+                    PersonalInfo pi = new PersonalInfo();
+                    pi.init(reportInfo, required, submitButton, nextButton);
+                    pi.getElement().setId("personalinfo");
+                    getDeck().add(pi);
+
+                    Activities activities = new Activities();
+                    activities.init(reportInfo, required, submitButton, nextButton);
+                    getDeck().add(activities);
+
+                    Summary summary = new Summary();
+                    summary.init(reportInfo, required, submitButton, nextButton);
+                    getDeck().add(summary);
+
+                    Final finalPage = new Final();
+                    finalPage.init(reportInfo, required, submitButton, nextButton);
+                    getDeck().add(finalPage);
                 }
             }
         });
@@ -179,6 +234,28 @@ public class Welcome extends BaseReportPage {
             public void onValueChange(ValueChangeEvent<Boolean> event) {
                 if (event.getValue()) {
                     addReportInfo("Reporting Marshal Type", ReportingMarshalType.ARMORED_COMBAT.getCode());
+                    if (getDeck() != null) {
+                        for (int i = getDeck().getWidgetCount(); i > 1; --i) {
+                            getDeck().remove(i - 1);
+                        }
+
+                        PersonalInfo pi = new PersonalInfo();
+                        pi.init(reportInfo, required, submitButton, nextButton);
+                        pi.getElement().setId("personalinfo");
+                        getDeck().add(pi);
+
+                        Activities activities = new Activities();
+                        activities.init(reportInfo, required, submitButton, nextButton);
+                        getDeck().add(activities);
+
+                        Summary summary = new Summary();
+                        summary.init(reportInfo, required, submitButton, nextButton);
+                        getDeck().add(summary);
+
+                        Final finalPage = new Final();
+                        finalPage.init(reportInfo, required, submitButton, nextButton);
+                        getDeck().add(finalPage);
+                    }
                 }
             }
         });
