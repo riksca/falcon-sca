@@ -147,6 +147,10 @@ public class Welcome extends BaseReportPage {
                     activities.init(reportInfo, required, submitButton, nextButton);
                     getDeck().add(activities);
 
+                    InjuryReport injuryReport = new InjuryReport();
+                    injuryReport.init(reportInfo, required, submitButton, nextButton);
+                    getDeck().add(injuryReport);
+
                     Summary summary = new Summary();
                     summary.init(reportInfo, required, submitButton, nextButton);
                     getDeck().add(summary);
@@ -248,6 +252,16 @@ public class Welcome extends BaseReportPage {
                         activities.init(reportInfo, required, submitButton, nextButton);
                         getDeck().add(activities);
 
+                        if (security.isRole(UserRoles.KNIGHTS_MARSHAL) || security.isRole(UserRoles.DEPUTY_EARL_MARSHAL)) {
+                            InjuryReport injuryReport = new InjuryReport();
+                            injuryReport.init(reportInfo, required, submitButton, nextButton);
+                            getDeck().add(injuryReport);
+
+                            FighterComment fc = new FighterComment();
+                            fc.init(reportInfo, required, submitButton, nextButton);
+                            getDeck().add(fc);
+                        }
+
                         Summary summary = new Summary();
                         summary.init(reportInfo, required, submitButton, nextButton);
                         getDeck().add(summary);
@@ -264,6 +278,7 @@ public class Welcome extends BaseReportPage {
     }
 
     @SuppressWarnings("deprecation")
+    // allow date deprecation because this is converted to JavaScript and GWT does not support other ways.
     private int getQuarter() {
         Date now = new Date();
         if (now.getMonth() < 2 || now.getMonth() == 11) {
@@ -291,23 +306,6 @@ public class Welcome extends BaseReportPage {
 
     @Override
     public void onLeavePage() {
-        String reportType = (String) getReportInfo().get("Report Type");
-        if (reportType.equals("Event")) {
-            InjuryReport injuryReport = new InjuryReport();
-            injuryReport.init(reportInfo, required, submitButton, nextButton);
-            getDeck().insert(injuryReport, getDeck().getWidgetCount() - 2);
-        } else {
-            if (security.isRole(UserRoles.KNIGHTS_MARSHAL)
-                    || security.isRole(UserRoles.DEPUTY_EARL_MARSHAL)) {
-                InjuryReport injuryReport = new InjuryReport();
-                injuryReport.init(reportInfo, required, submitButton, nextButton);
-                getDeck().insert(injuryReport, getDeck().getWidgetCount() - 2);
-
-                FighterComment fc = new FighterComment();
-                fc.init(reportInfo, required, submitButton, nextButton);
-                getDeck().insert(fc, getDeck().getWidgetCount() - 2);
-            }
-        }
-
     }
+
 }
