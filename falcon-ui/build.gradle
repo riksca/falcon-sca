@@ -54,9 +54,20 @@ dependencies {
     //gwt  project: ':falcon-db', classifier: 'sources'
 }
 
+task cpData << {
+    if (!file("./build/exploded-falcon-ui/WEB-INF/appengine-generated/local_db.bin").exists()) {
+        logger.lifecycle("Copying test data")
+        copy {
+            from 'src/test/resources/local_db.bin'
+            into 'build/exploded-falcon-ui/WEB-INF/appengine-generated/'
+        }
+    }
+}
+
 // Always run unit tests
 appengineDeploy.dependsOn test
 appengineStage.dependsOn test
+appengineRun.dependsOn cpData
 
 appengine {  // App Engine tasks configuration
   run {

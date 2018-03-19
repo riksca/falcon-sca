@@ -99,7 +99,7 @@ public abstract class BaseReportPage extends SimplePanel {
             logStr += "\n";
         }
         logStr += "returning count " + count;
-        log.info(logStr);
+        log.fine(logStr);
         return count == 0;
     }
 
