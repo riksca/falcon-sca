@@ -88,11 +88,18 @@ public abstract class BaseReportPage extends SimplePanel {
 
     protected boolean allRequired() {
         int count = required.size();
+        String logStr = "";
+        logStr += "Required count " + count + "\n";
         for (String test : required) {
+            logStr += test;
             if (reportInfo.containsKey(test)) {
                 --count;
+                logStr += " found";
             }
+            logStr += "\n";
         }
+        logStr += "returning count " + count;
+        log.info(logStr);
         return count == 0;
     }
 
@@ -105,6 +112,10 @@ public abstract class BaseReportPage extends SimplePanel {
 
     public Map<String, Object> getReportInfo() {
         return reportInfo;
+    }
+
+    public Object getReportInfo(String key) {
+        return reportInfo.get(key);
     }
 
     public List<String> getRequired() {

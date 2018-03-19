@@ -80,8 +80,8 @@ public class ReportGen extends Composite {
         List<String> required = new ArrayList<>();
 
         Welcome welcome = new Welcome();
-        welcome.init(reportInfo, required, submit, next);
         welcome.setDeck(deck);
+        welcome.init(reportInfo, required, submit, next);
         deck.add(welcome);
 
         Panel background = new FlowPanel();
