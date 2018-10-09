@@ -8,6 +8,7 @@ import com.google.gwt.dom.client.Style;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Panel;
+import java.util.Date;
 import org.calontir.marshallate.falcon.common.ReportingMarshalType;
 
 /**
@@ -41,17 +42,15 @@ public class EqFinal extends BaseReportPage {
 
         buildOne("Reporting Marshal Type: ", rmt.getValue(), bk);
 
-        if (getReportInfo().containsKey("Marshal Type")) {
-            buildOne("Marshal Type: ", getReportInfo().get("Marshal Type").toString(), bk);
-        }
-        if (getReportInfo().containsKey("Equestrian Marshal in Charge")) {
-            buildOne("Equestrian Marshal in Charge: ",
-                    getReportInfo().get("Equestrian Marshal in Charge").toString(), bk);
-        }
+        buildOne("Marshal Type: ", (String) getReportInfo().get("Marshal Type"), bk);
+        buildOne("Equestrian Marshal in Charge: ", (String) getReportInfo().get("Equestrian Marshal in Charge"), bk);
+        buildOne("Additional Marshals: ", (String) getReportInfo().get("Additional Marshals"), bk);
+        buildOne("Hosting SCA Group: ", (String) getReportInfo().get("Hosting SCA Group"), bk);
+        buildOne("Name of Event: ", (String) getReportInfo().get("Name of Event"), bk);
+        buildOne("Date of Event: ", ((Date) getReportInfo().get("Date of Event")).toString(), bk);
     }
 
     private void buildOne(String title, String body, Panel bk) {
-
         ParagraphElement para = Document.get().createPElement();
         HeadingElement hthree = Document.get().createHElement(3);
         hthree.getStyle().setDisplay(Style.Display.INLINE);
@@ -61,17 +60,6 @@ public class EqFinal extends BaseReportPage {
         para.insertFirst(hthree);
         para.insertAfter(span, null);
 
-        bk.getElement().insertAfter(para, null);
-    }
-
-    private void buildTwo(String title, String body, Panel bk) {
-        HeadingElement hthree = Document.get().createHElement(3);
-        hthree.setInnerText(title);
-        ParagraphElement para = Document.get().createPElement();
-        if (body != null && !body.trim().isEmpty()) {
-            para.setInnerHTML(body);
-        }
-        bk.getElement().insertAfter(hthree, null);
         bk.getElement().insertAfter(para, null);
     }
 

@@ -156,6 +156,10 @@ public class Welcome extends BaseReportPage {
                         eqEvent.init(reportInfo, required, submitButton, nextButton);
                         getDeck().add(eqEvent);
 
+//                        EqEventDetail eqEventDetail = new EqEventDetail();
+//                        eqEventDetail.init(reportInfo, required, submitButton, nextButton);
+//                        getDeck().add(eqEventDetail);
+
                         EqFinal finalPage = new EqFinal();
                         finalPage.init(reportInfo, required, submitButton, nextButton);
                         getDeck().add(finalPage);
