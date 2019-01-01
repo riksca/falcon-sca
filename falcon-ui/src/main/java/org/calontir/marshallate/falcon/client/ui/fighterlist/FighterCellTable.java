@@ -135,20 +135,22 @@ public class FighterCellTable extends CellTable<FighterInfo> {
         imageColumn = new Column<FighterInfo, String>(imageCell) {
             @Override
             public String getValue(FighterInfo fighter) {
-                if (fighter.getRole().equals(UserRoles.USER.toString())) {
-                    return "/images/authorizedFighter.png";
-                } else if (fighter.getRole().equals(UserRoles.MARSHAL_OF_THE_FIELD.toString())) {
-                    return "/images/warrantedMarshal.png";
-                } else if (fighter.getRole().equals(UserRoles.CUT_AND_THRUST_MARSHAL.toString())) {
-                    return "/images/falconCutAndThrustMarshal.png";
-                } else if (fighter.getRole().equals(UserRoles.KNIGHTS_MARSHAL.toString())) {
-                    return "/images/knightsMarshal.png";
-                } else if (fighter.getRole().equals(UserRoles.DEPUTY_EARL_MARSHAL.toString())) {
-                    return "/images/regionalDeputy.png";
-                } else if (fighter.getRole().equals(UserRoles.CARD_MARSHAL.toString())) {
-                    return "/images/warrantedMarshal.png";
-                } else if (fighter.getRole().equals(UserRoles.EARL_MARSHAL.toString())) {
-                    return "/images/earlMarshal.png";
+                if (fighter != null && fighter.getRole() != null) {
+                    if (fighter.getRole().equals(UserRoles.USER.toString())) {
+                        return "/images/authorizedFighter.png";
+                    } else if (fighter.getRole().equals(UserRoles.MARSHAL_OF_THE_FIELD.toString())) {
+                        return "/images/warrantedMarshal.png";
+                    } else if (fighter.getRole().equals(UserRoles.CUT_AND_THRUST_MARSHAL.toString())) {
+                        return "/images/falconCutAndThrustMarshal.png";
+                    } else if (fighter.getRole().equals(UserRoles.KNIGHTS_MARSHAL.toString())) {
+                        return "/images/knightsMarshal.png";
+                    } else if (fighter.getRole().equals(UserRoles.DEPUTY_EARL_MARSHAL.toString())) {
+                        return "/images/regionalDeputy.png";
+                    } else if (fighter.getRole().equals(UserRoles.CARD_MARSHAL.toString())) {
+                        return "/images/warrantedMarshal.png";
+                    } else if (fighter.getRole().equals(UserRoles.EARL_MARSHAL.toString())) {
+                        return "/images/earlMarshal.png";
+                    }
                 }
                 return "/images/authorizedFighter.png";
             }
@@ -273,7 +275,8 @@ public class FighterCellTable extends CellTable<FighterInfo> {
             final FighterServiceAsync fighterService = GWT.create(FighterService.class);
             switch (dataProviderType) {
                 case FIGHTER:
-                    fighterService.getFighters(cursor, dispLength, prevPageStart, new AsyncCallback<FighterListResultWrapper>() {
+                    fighterService.getFighters(cursor, dispLength, prevPageStart,
+                            new AsyncCallback<FighterListResultWrapper>() {
 
                         @Override
                         public void onFailure(Throwable caught) {
@@ -297,7 +300,8 @@ public class FighterCellTable extends CellTable<FighterInfo> {
                     });
                     break;
                 case GROUP:
-                    fighterService.getFightersByGroup(group, cursor, dispLength, prevPageStart, new AsyncCallback<FighterListResultWrapper>() {
+                    fighterService.getFightersByGroup(group, cursor, dispLength, prevPageStart,
+                            new AsyncCallback<FighterListResultWrapper>() {
 
                         @Override
                         public void onFailure(Throwable caught) {

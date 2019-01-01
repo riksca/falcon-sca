@@ -29,6 +29,11 @@ def fighterKeys = datastore.iterate {
     where status == FighterStatus.ACTIVE.toString()
 }
 
+def wsh = datastore.execute {
+    select single from AuthType
+    where code == "WSH"
+}
+
 def ct = datastore.execute {
     select single from AuthType
     where code == "CT"
@@ -44,10 +49,16 @@ def marshal = datastore.execute {
     where code == "Marshal"
 }
 
+def wshCount = 0
 def ctCount = 0
 def ctMarshalCount = 0
 def marshalCount = 0
 for (key in fighterKeys) {
+    wshCount += datastore.execute {
+        select count from Authorization
+        where authType == wsh.key
+        ancestor key
+    }
     ctCount += datastore.execute {
         select count from Authorization
         where authType == ct.key
@@ -90,6 +101,11 @@ build.html {
                 tr {
                     td(class: "${row%2 == 0 ? 'row_even': 'row_odd'}", "Number of active fighters")
                     td(class: "${row%2 == 0 ? 'row_even': 'row_odd'}", activeCount)
+                    row++
+                }
+                tr {
+                    td(class: "${row%2 == 0 ? 'row_even': 'row_odd'}", "Number of Active fighters with WSH Authorization")
+                    td(class: "${row%2 == 0 ? 'row_even': 'row_odd'}", wshCount)
                     row++
                 }
                 tr {

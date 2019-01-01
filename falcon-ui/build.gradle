@@ -8,7 +8,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.google.cloud.tools:appengine-gradle-plugin:+'
+        classpath 'com.google.cloud.tools:appengine-gradle-plugin:1.3.3'
         classpath 'de.richsource.gradle.plugins:gwt-gradle-plugin:+'
     }
 }
