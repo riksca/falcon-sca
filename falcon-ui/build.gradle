@@ -68,6 +68,7 @@ task cpData {
 appengineDeploy.dependsOn test
 appengineStage.dependsOn test
 appengineRun.dependsOn cpData
+appengineStart.dependsOn cpData
 
 appengine {  // App Engine tasks configuration
   run {

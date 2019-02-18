@@ -188,6 +188,8 @@ public class Welcome extends BaseReportPage {
         bk.add(eventButtonPanel);
 
         add(bk);
+
+	onDisplay();
     }
 
     private void equestrianButton(Panel marshalTypePanel) {
@@ -197,6 +199,8 @@ public class Welcome extends BaseReportPage {
             public void onValueChange(ValueChangeEvent<Boolean> event) {
                 if (event.getValue()) {
                     getRequired().clear();
+		    nextButton.setEnabled(true);
+		    nextButton.setTitle("Next");
                     addReportInfo("Reporting Marshal Type", ReportingMarshalType.EQUESTRIAN.getCode());
                     for (int i = getDeck().getWidgetCount(); i > 1; --i) {
                         getDeck().remove(i - 1);
@@ -228,6 +232,8 @@ public class Welcome extends BaseReportPage {
             public void onValueChange(ValueChangeEvent<Boolean> event) {
                 if (event.getValue()) {
                     getRequired().clear();
+		    nextButton.setEnabled(true);
+		    nextButton.setTitle("Next");
                     addReportInfo("Reporting Marshal Type", ReportingMarshalType.CALON_STEEL.getCode());
                     for (int i = getDeck().getWidgetCount(); i > 1; --i) {
                         getDeck().remove(i - 1);
@@ -263,6 +269,8 @@ public class Welcome extends BaseReportPage {
             public void onValueChange(ValueChangeEvent<Boolean> event) {
                 if (event.getValue()) {
                     getRequired().clear();
+		    nextButton.setEnabled(true);
+		    nextButton.setTitle("Next");
                     addReportInfo("Reporting Marshal Type", ReportingMarshalType.ARMORED_COMBAT.getCode());
                     for (int i = getDeck().getWidgetCount(); i > 1; --i) {
                         getDeck().remove(i - 1);
@@ -325,8 +333,8 @@ public class Welcome extends BaseReportPage {
 
     @Override
     public void onDisplay() {
-        nextButton.setEnabled(true);
-        acButton.setValue(Boolean.TRUE, true);
+        nextButton.setEnabled(false);
+	nextButton.setTitle("Set the Report Marshal Type to enable.");
     }
 
     @Override
