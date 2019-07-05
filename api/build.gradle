@@ -45,7 +45,7 @@ appengine {  // App Engine tasks configuration
   run {
   }
   deploy {   // deploy configuration
-      version = 'v3-0-3'
+      version = 'v4-0-0'
       project = "falcon-sca"
       promote = false
       stopPreviousVersion = false

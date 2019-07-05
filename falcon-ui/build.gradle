@@ -75,7 +75,7 @@ appengine {  // App Engine tasks configuration
     port = 8080
   }
   deploy {   // deploy configuration
-      version = 'v3-0-3'
+      version = 'v4-0-0'
       project = "falcon-sca"
       promote = false
       stopPreviousVersion = false
