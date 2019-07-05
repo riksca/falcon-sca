@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.calontir.marshallate.falcon.client.ui.fighterform;
 
 import com.google.gwt.user.client.ui.Composite;
@@ -14,6 +10,8 @@ import org.calontir.marshallate.falcon.client.user.SecurityFactory;
  */
 public class AbstractFieldWidget extends Composite {
 	final protected Security security = SecurityFactory.getSecurity();
+	private boolean required = true;
+	private boolean valid = true;
 
 	protected String cleanString(String target) {
 		if (target == null) {
@@ -25,5 +23,20 @@ public class AbstractFieldWidget extends Composite {
 
 		return changed;
 	}
-	
+
+	public boolean isRequired() {
+		return required;
+	}
+
+	public void setRequired(boolean required) {
+		this.required = required;
+	}
+
+	public boolean isValid() {
+		return valid;
+	}
+
+	public void setValid(boolean valid) {
+		this.valid = valid;
+	}
 }
