@@ -169,7 +169,7 @@ public class FighterCellTable extends CellTable<FighterInfo> {
         scaNameColumn = new TextColumn<FighterInfo>() {
             @Override
             public String getValue(FighterInfo fli) {
-                return fli.getScaName();
+                return fli.getScaName() == null ? "" : fli.getScaName();
             }
         };
         scaNameColumn.setSortable(false);

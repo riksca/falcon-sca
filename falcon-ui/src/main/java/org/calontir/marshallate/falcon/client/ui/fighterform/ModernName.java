@@ -4,6 +4,7 @@ import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextBox;
+import org.calontir.marshallate.falcon.client.ui.Shout;
 import org.calontir.marshallate.falcon.common.UserRoles;
 import org.calontir.marshallate.falcon.dto.Fighter;
 
@@ -25,8 +26,12 @@ public class ModernName extends AbstractFieldWidget {
                 @Override
                 public void onValueChange(ValueChangeEvent<String> event) {
                     String change = cleanString(event.getValue());
-                    fighter.setModernName(modernName.getValue().trim());
-                    //TODO: error, this cannot be blank
+		    if(modernName.getValue().trim().isEmpty()) {
+			modernName.setFocus(true);
+			Shout.getInstance().tell("Modern Name is required");
+		    } else {
+			fighter.setModernName(modernName.getValue().trim());
+		    }
                 }
             });
             initWidget(modernName);

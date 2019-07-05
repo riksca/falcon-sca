@@ -9,7 +9,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.google.cloud.tools:appengine-gradle-plugin:1.3.3'
-        classpath 'de.richsource.gradle.plugins:gwt-gradle-plugin:+'
+        classpath 'org.wisepersist:gwt-gradle-plugin:+'
     }
 }
 
@@ -54,7 +54,7 @@ dependencies {
     //gwt  project: ':falcon-db', classifier: 'sources'
 }
 
-task cpData << {
+task cpData {
     if (!file("./build/exploded-falcon-ui/WEB-INF/appengine-generated/local_db.bin").exists()) {
         logger.lifecycle("Copying test data")
         copy {
@@ -68,13 +68,14 @@ task cpData << {
 appengineDeploy.dependsOn test
 appengineStage.dependsOn test
 appengineRun.dependsOn cpData
+appengineStart.dependsOn cpData
 
 appengine {  // App Engine tasks configuration
   run {
     port = 8080
   }
   deploy {   // deploy configuration
-      version = 'v3-0-1'
+      version = 'v3-0-3'
       project = "falcon-sca"
       promote = false
       stopPreviousVersion = false

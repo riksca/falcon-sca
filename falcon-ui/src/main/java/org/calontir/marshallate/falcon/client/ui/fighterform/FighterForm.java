@@ -23,13 +23,13 @@ public class FighterForm extends Composite {
     private PhoneNumberField phoneNumberField;
     private EmailAddressField emailAddressField;
 
-    public FighterForm(final Fighter fighter, final boolean edit, final boolean add) {
+    public FighterForm(final Fighter fighter, final boolean edit, final boolean add, final boolean report) {
         modernName = new ModernName(fighter, edit);
         statusField = new StatusField(fighter, edit);
         addressField = new AddressField(fighter, edit);
         treatyField = new TreatyField(fighter, edit);
         scaMemberNoField = new ScaMemberNoField(fighter, edit);
-        membershipExpiresField = new MembershipExpiresField(fighter, edit);
+        membershipExpiresField = new MembershipExpiresField(fighter, edit, report);
         groupField = new GroupField(fighter, edit, add);
         minorField = new MinorField(fighter, edit);
         dateOfBirthField = new DateOfBirthField(fighter, edit);

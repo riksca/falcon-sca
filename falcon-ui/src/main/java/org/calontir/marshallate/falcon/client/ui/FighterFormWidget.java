@@ -260,7 +260,7 @@ public class FighterFormWidget extends Composite implements EditViewHandler, For
         fighterInfo.getElement().setAttribute("id", "fighterInfo");
         dataBody.add(fighterInfo);
 
-        fighterInfo.add(new FighterForm(fighter, edit, dMode == DisplayMode.add));
+        fighterInfo.add(new FighterForm(fighter, edit, dMode == DisplayMode.add, false));
 
         if (security.isRoleOrGreater(UserRoles.CARD_MARSHAL)) { // or user admin
             fighterInfo.add(adminInfo(edit));

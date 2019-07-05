@@ -89,7 +89,7 @@ public class PersonalInfo extends BaseReportPage {
 
         Panel dataBody = new FlowPanel();
         dataBody.setStyleName("dataBody");
-        dataBody.add(new FighterForm(user, edit, false));
+        dataBody.add(new FighterForm(user, edit, false, false));
 
         infoPanel.add(dataHeader);
         infoPanel.add(dataBody);
