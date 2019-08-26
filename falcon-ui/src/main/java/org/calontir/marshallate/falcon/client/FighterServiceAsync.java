@@ -50,6 +50,7 @@ public interface FighterServiceAsync {
     public void getAllReports(AsyncCallback<List<Report>> async);
 
     public void getReports(Integer days, AsyncCallback<List<Report>> async);
+    public void getReports(String quarter, AsyncCallback<List<Report>> async);
 
     public void deleteReport(Report report, AsyncCallback<Void> async);
 

@@ -30,6 +30,7 @@ import org.calontir.marshallate.falcon.dto.Report;
 public class ReportDAO {
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    static final Logger logger = Logger.getLogger(ReportDAO.class.getName());
 
     public List<Report> select() {
         Query q = new Query("Report").addSort("dateEntered", SortDirection.DESCENDING);
@@ -55,11 +56,35 @@ public class ReportDAO {
         return reports;
     }
 
+    public List<Report> getForQuarter(String quarter) {
+        final Query q = new Query("Report")
+                .addSort("dateEntered", SortDirection.DESCENDING);
+        final DateTime dt = new DateTime().minusMonths(11); // go back 11 months.
+        final String dateEnteredString = dt.toString();
+        final Filter reportKeyFilter = new FilterPredicate("dateEntered", FilterOperator.GREATER_THAN_OR_EQUAL,
+                dateEnteredString);
+        q.setFilter(reportKeyFilter);
+
+        final List<Report> queryList = new ArrayList<>();
+        final PreparedQuery pq = datastore.prepare(q);
+        for (final Entity entity : pq.asQueryResultIterable()) {
+            Report reportFromEntity = buildReportFromEntity(entity);
+            String reportType = reportFromEntity.getReportParams().get("Report Type");
+            logger.info(String.format("Target %s actual %s", quarter, reportType));
+            if (reportType != null && reportType.startsWith(quarter)) {
+                queryList.add(reportFromEntity);
+            }
+        }
+
+        return queryList;
+    }
+
     public List<Report> getForDays(Integer days) {
         final Query q = new Query("Report").addSort("dateEntered", SortDirection.DESCENDING);
         final DateTime dt = new DateTime().minusDays(days);
         final String dateEnteredString = dt.toString();
-        final Filter reportKeyFilter = new FilterPredicate("dateEntered", FilterOperator.GREATER_THAN_OR_EQUAL, dateEnteredString);
+        final Filter reportKeyFilter = new FilterPredicate("dateEntered", FilterOperator.GREATER_THAN_OR_EQUAL,
+                dateEnteredString);
         q.setFilter(reportKeyFilter);
 
         return executeQuery(q);
@@ -69,7 +94,8 @@ public class ReportDAO {
         final Query q = new Query("Report").addSort("dateEntered", SortDirection.DESCENDING);
         final DateTime dt = new DateTime().minusDays(days);
         final String dateEnteredString = dt.toString();
-        final Filter reportKeyFilter = new FilterPredicate("dateEntered", FilterOperator.GREATER_THAN_OR_EQUAL, dateEnteredString);
+        final Filter reportKeyFilter = new FilterPredicate("dateEntered", FilterOperator.GREATER_THAN_OR_EQUAL,
+                dateEnteredString);
         q.setFilter(reportKeyFilter);
 
         final PreparedQuery reportIdPQ = datastore.prepare(q);
@@ -109,13 +135,15 @@ public class ReportDAO {
         final Map<String, String> reportParams = new HashMap<>();
         for (final Entity e : iPq.asQueryResultIterable()) {
             final Object value = e.getProperty("value");
-            String strValue;
+            String strValue = "";
             if (value instanceof Text) {
                 strValue = ((Text) value).getValue();
             } else if (value instanceof String) {
                 strValue = (String) value;
             } else {
-                strValue = value.toString();
+                if (value != null) {
+                    strValue = value.toString();
+                }
             }
             reportParams.put(e.getProperty("name").toString(), strValue);
         }

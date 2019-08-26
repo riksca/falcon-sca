@@ -67,8 +67,8 @@ task cpData {
 // Always run unit tests
 appengineDeploy.dependsOn test
 appengineStage.dependsOn test
-appengineRun.dependsOn cpData
-appengineStart.dependsOn cpData
+appengineRun.shouldRunAfter cpData
+appengineStart.shouldRunAfter cpData
 
 appengine {  // App Engine tasks configuration
   run {
