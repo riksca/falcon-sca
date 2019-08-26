@@ -49,19 +49,6 @@ public class FighterServiceImpl extends RemoteServiceServlet implements FighterS
 
     private static final Logger log = Logger.getLogger(FighterServiceImpl.class.getName());
 
-    @Override
-    public FighterListInfo getListItems(Date targetDate) {
-        FighterListInfo retval = new FighterListInfo();
-        FighterDAO fighterDao = new FighterDAO();
-        TableUpdatesDao tuDao = new TableUpdatesDao();
-        TableUpdates tu = tuDao.getTableUpdates("Fighter");
-        List<FighterListItem> fighters;
-        fighters = fighterDao.getFighterListItems(new DateTime(targetDate));
-        retval.setUpdateInfo(true);
-
-        return convert(fighters);
-    }
-
     private FighterListInfo convert(List<FighterListItem> fighters) {
         final FighterListInfo retval = new FighterListInfo();
         final List<FighterInfo> retValList = new ArrayList<>();
@@ -85,10 +72,67 @@ public class FighterServiceImpl extends RemoteServiceServlet implements FighterS
     }
 
     @Override
+    public Integer countFightersInGroup(String group) {
+        final Security security = SecurityFactory.getSecurity();
+        final FighterDAO fighterDao = new FighterDAO();
+        final ScaGroupDAO groupDao = new ScaGroupDAO();
+        final ScaGroup scaGroup = groupDao.getScaGroupByName(group);
+        return fighterDao.getFighterCountInGroup(scaGroup, security.isRoleOrGreater(UserRoles.CARD_MARSHAL));
+    }
+
+    @Override
+    public Integer countMinorsInGroup(String group) {
+        final FighterDAO fighterDao = new FighterDAO();
+        final ScaGroupDAO groupDao = new ScaGroupDAO();
+        final ScaGroup scaGroup = groupDao.getScaGroupByName(group);
+        return fighterDao.getMinorCountInGroup(scaGroup);
+    }
+
+    @Override
+    public void deleteReport(Report report) {
+        String namespace = NamespaceManager.get();
+        try {
+            NamespaceManager.set("calontir");
+            ReportDAO dao = new ReportDAO();
+            dao.delete(report);
+        } finally {
+            NamespaceManager.set(namespace);
+        }
+    }
+
+    @Override
+    public List<Report> getAllReports() {
+        String namespace = NamespaceManager.get();
+        try {
+            NamespaceManager.set("calontir");
+            ReportDAO dao = new ReportDAO();
+            return dao.select();
+        } finally {
+            NamespaceManager.set(namespace);
+        }
+    }
+
+    @Override
+    public List<AuthType> getAuthTypes() {
+        AuthTypeDAO dao = new AuthTypeDAO();
+        return dao.getAuthType();
+    }
+
+    @Override
     public Fighter getFighter(Long id) {
         FighterDAO fighterDao = new FighterDAO();
 
         return fighterDao.getFighter(id);
+    }
+
+    @Override
+    public Fighter getFighterByScaName(String scaName) {
+        FighterDAO fighterDao = new FighterDAO();
+        List<Fighter> fList = fighterDao.queryFightersByScaName(scaName);
+        if (fList != null && !fList.isEmpty()) {
+            return fList.get(0);
+        }
+        return null;
     }
 
     @Override
@@ -118,10 +162,12 @@ public class FighterServiceImpl extends RemoteServiceServlet implements FighterS
         final FighterDAO fighterDao = new FighterDAO();
         final FighterResultWrapper fighterResults;
         if (cursor == null) {
-            fighterResults = fighterDao.getFightersByGroup(group, pageSize, offset, security.isRoleOrGreater(UserRoles.CARD_MARSHAL));
+            fighterResults = fighterDao.getFightersByGroup(group, pageSize, offset, security.isRoleOrGreater(
+                    UserRoles.CARD_MARSHAL));
         } else {
             final Cursor startCursor = Cursor.fromWebSafeString(cursor);
-            fighterResults = fighterDao.getFightersByGroup(group, pageSize, startCursor, security.isRoleOrGreater(UserRoles.CARD_MARSHAL));
+            fighterResults = fighterDao.getFightersByGroup(group, pageSize, startCursor, security.isRoleOrGreater(
+                    UserRoles.CARD_MARSHAL));
         }
         final String newCursor = fighterResults.getCursor() == null ? null : fighterResults.getCursor().toWebSafeString();
 
@@ -134,10 +180,10 @@ public class FighterServiceImpl extends RemoteServiceServlet implements FighterS
     }
 
     @Override
-    public FighterListResultWrapper getFightersSortedByScaName(Integer pageSize) {
+    public FighterListResultWrapper getFightersSortedByScaGroup(Integer pageSize) {
         final Security security = SecurityFactory.getSecurity();
         final FighterDAO fighterDao = new FighterDAO();
-        FighterResultWrapper fighterResults = fighterDao.getFightersSortedByScaName(pageSize);
+        FighterResultWrapper fighterResults = fighterDao.getFightersSortedByGroup(pageSize);
         final String newCursor = fighterResults.getCursor().toWebSafeString();
 
         final FighterListResultWrapper fighterListResults = new FighterListResultWrapper();
@@ -149,10 +195,10 @@ public class FighterServiceImpl extends RemoteServiceServlet implements FighterS
     }
 
     @Override
-    public FighterListResultWrapper getFightersSortedByScaGroup(Integer pageSize) {
+    public FighterListResultWrapper getFightersSortedByScaName(Integer pageSize) {
         final Security security = SecurityFactory.getSecurity();
         final FighterDAO fighterDao = new FighterDAO();
-        FighterResultWrapper fighterResults = fighterDao.getFightersSortedByGroup(pageSize);
+        FighterResultWrapper fighterResults = fighterDao.getFightersSortedByScaName(pageSize);
         final String newCursor = fighterResults.getCursor().toWebSafeString();
 
         final FighterListResultWrapper fighterListResults = new FighterListResultWrapper();
@@ -179,66 +225,35 @@ public class FighterServiceImpl extends RemoteServiceServlet implements FighterS
     }
 
     @Override
-    public Long saveFighter(Fighter fighter) {
-        FighterDAO fighterDao = new FighterDAO();
-        try {
-            return fighterDao.saveFighter(fighter, fighter.getFighterId(), false);
-        } catch (ValidationException ex) {
-            log.log(Level.SEVERE, null, ex);
-            return null;
-        }
-    }
-
-    @Override
-    public FighterListInfo searchFighters(String searchString) {
-        final Security security = SecurityFactory.getSecurity();
-        if (!security.isRoleOrGreater(UserRoles.CARD_MARSHAL)) {
-            searchString = "scaName = " + searchString;
-        }
-        final FighterDAO fighterDao = new FighterDAO();
-        return convert(fighterDao.searchFighters(searchString));
-    }
-
-    @Override
-    public List<AuthType> getAuthTypes() {
-        AuthTypeDAO dao = new AuthTypeDAO();
-        return dao.getAuthType();
-    }
-
-    @Override
     public List<ScaGroup> getGroups() {
         ScaGroupDAO dao = new ScaGroupDAO();
         return dao.getScaGroup();
     }
 
     @Override
-    public Fighter getFighterByScaName(String scaName) {
+    public FighterListInfo getListItems(Date targetDate) {
+        FighterListInfo retval = new FighterListInfo();
         FighterDAO fighterDao = new FighterDAO();
-        List<Fighter> fList = fighterDao.queryFightersByScaName(scaName);
-        if (fList != null && !fList.isEmpty()) {
-            return fList.get(0);
-        }
-        return null;
+        TableUpdatesDao tuDao = new TableUpdatesDao();
+        TableUpdates tu = tuDao.getTableUpdates("Fighter");
+        List<FighterListItem> fighters;
+        fighters = fighterDao.getFighterListItems(new DateTime(targetDate));
+        retval.setUpdateInfo(true);
+
+        return convert(fighters);
     }
 
     @Override
-    public Map<String, Object> initialLookup() {
-        log.log(Level.INFO, "Start Initial Lookup");
-        Map<String, Object> iMap = new HashMap<>();
-        // get application version
-        iMap.put("appversion", "3.0.3");
-
-        // get groups
-        ScaGroupDAO groupDao = new ScaGroupDAO();
-        List<ScaGroup> groups = groupDao.getScaGroup();
-        iMap.put("groups", groups);
-
-        // get authtypes
-        AuthTypeDAO authTypeDao = new AuthTypeDAO();
-        List<AuthType> authTypes = authTypeDao.getAuthType();
-        iMap.put("authTypes", authTypes);
-
-        return iMap;
+    public List<Fighter> getMinorFighters(String group) {
+        FighterDAO fighterDao = new FighterDAO();
+        List<Fighter> fList = fighterDao.getMinorCount();
+        List<Fighter> retList = new ArrayList<>();
+        for (Fighter f : fList) {
+            if (f.getScaGroup().getGroupName().equals(group)) {
+                retList.add(f);
+            }
+        }
+        return retList;
     }
 
     @Override
@@ -257,16 +272,93 @@ public class FighterServiceImpl extends RemoteServiceServlet implements FighterS
     }
 
     @Override
-    public List<Fighter> getMinorFighters(String group) {
-        FighterDAO fighterDao = new FighterDAO();
-        List<Fighter> fList = fighterDao.getMinorCount();
-        List<Fighter> retList = new ArrayList<>();
-        for (Fighter f : fList) {
-            if (f.getScaGroup().getGroupName().equals(group)) {
-                retList.add(f);
+    public List<Report> getReports(String quarter) {
+        final Security security = SecurityFactory.getSecurity();
+        log(String.format("Getting reports for %s", quarter));
+        List<Report> reports = null;
+        log.log(Level.INFO, security.getUser().toString());
+        if (security.isRoleOrGreater(UserRoles.DEPUTY_EARL_MARSHAL)) {
+            log.log(Level.INFO, "Card Marshal");
+            final String namespace = NamespaceManager.get();
+            try {
+                NamespaceManager.set("calontir");
+                ReportDAO dao = new ReportDAO();
+                reports = dao.getForQuarter(quarter);
+            } finally {
+                NamespaceManager.set(namespace);
             }
+        } else {
+            log.log(Level.INFO, "No reports allowed");
         }
-        return retList;
+        if (reports == null || reports.isEmpty()) {
+            log.log(Level.WARNING, "No data found for report");
+        }
+
+        return reports;
+    }
+
+    @Override
+    public List<Report> getReports(Integer days) {
+        final Security security = SecurityFactory.getSecurity();
+        log(String.format("Getting reports for the last %d days", days));
+        List<Report> reports = null;
+        log.log(Level.INFO, security.getUser().toString());
+        if (security.isRoleOrGreater(UserRoles.DEPUTY_EARL_MARSHAL)) {
+            log.log(Level.INFO, "Card Marshal");
+            final String namespace = NamespaceManager.get();
+            try {
+                NamespaceManager.set("calontir");
+                ReportDAO dao = new ReportDAO();
+                reports = dao.getForDays(days);
+            } finally {
+                NamespaceManager.set(namespace);
+            }
+        } else {
+            log.log(Level.INFO, "No reports allowed");
+        }
+
+        return reports;
+    }
+
+    @Override
+    public Map<String, Object> initialLookup() {
+        log.log(Level.INFO, "Start Initial Lookup");
+        Map<String, Object> iMap = new HashMap<>();
+        // get application version
+        iMap.put("appversion", "4.0.0");
+
+        // get groups
+        ScaGroupDAO groupDao = new ScaGroupDAO();
+        List<ScaGroup> groups = groupDao.getScaGroup();
+        iMap.put("groups", groups);
+
+        // get authtypes
+        AuthTypeDAO authTypeDao = new AuthTypeDAO();
+        List<AuthType> authTypes = authTypeDao.getAuthType();
+        iMap.put("authTypes", authTypes);
+
+        return iMap;
+    }
+
+    @Override
+    public Long saveFighter(Fighter fighter) {
+        FighterDAO fighterDao = new FighterDAO();
+        try {
+            return fighterDao.saveFighter(fighter, fighter.getFighterId(), false);
+        } catch (ValidationException ex) {
+            log.log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+
+    @Override
+    public FighterListInfo searchFighters(String searchString) {
+        final Security security = SecurityFactory.getSecurity();
+        if (!security.isRoleOrGreater(UserRoles.CARD_MARSHAL)) {
+            searchString = "scaName = " + searchString;
+        }
+        final FighterDAO fighterDao = new FighterDAO();
+        return convert(fighterDao.searchFighters(searchString));
     }
 
     @Override
@@ -311,70 +403,6 @@ public class FighterServiceImpl extends RemoteServiceServlet implements FighterS
         } catch (IOException ioe) {
             log(ioe.getLocalizedMessage(), ioe);
         }
-    }
-
-    @Override
-    public List<Report> getAllReports() {
-        String namespace = NamespaceManager.get();
-        try {
-            NamespaceManager.set("calontir");
-            ReportDAO dao = new ReportDAO();
-            return dao.select();
-        } finally {
-            NamespaceManager.set(namespace);
-        }
-    }
-
-    @Override
-    public void deleteReport(Report report) {
-        String namespace = NamespaceManager.get();
-        try {
-            NamespaceManager.set("calontir");
-            ReportDAO dao = new ReportDAO();
-            dao.delete(report);
-        } finally {
-            NamespaceManager.set(namespace);
-        }
-    }
-
-    @Override
-    public List<Report> getReports(Integer days) {
-        final Security security = SecurityFactory.getSecurity();
-        log(String.format("Getting reports for the last %d days", days));
-        List<Report> reports = null;
-        log.log(Level.INFO, security.getUser().toString());
-        if (security.isRoleOrGreater(UserRoles.DEPUTY_EARL_MARSHAL)) {
-            log.log(Level.INFO, "Card Marshal");
-            final String namespace = NamespaceManager.get();
-            try {
-                NamespaceManager.set("calontir");
-                ReportDAO dao = new ReportDAO();
-                reports = dao.getForDays(days);
-            } finally {
-                NamespaceManager.set(namespace);
-            }
-        } else {
-            log.log(Level.INFO, "No reports allowed");
-        }
-
-        return reports;
-    }
-
-    @Override
-    public Integer countFightersInGroup(String group) {
-        final Security security = SecurityFactory.getSecurity();
-        final FighterDAO fighterDao = new FighterDAO();
-        final ScaGroupDAO groupDao = new ScaGroupDAO();
-        final ScaGroup scaGroup = groupDao.getScaGroupByName(group);
-        return fighterDao.getFighterCountInGroup(scaGroup, security.isRoleOrGreater(UserRoles.CARD_MARSHAL));
-    }
-
-    @Override
-    public Integer countMinorsInGroup(String group) {
-        final FighterDAO fighterDao = new FighterDAO();
-        final ScaGroupDAO groupDao = new ScaGroupDAO();
-        final ScaGroup scaGroup = groupDao.getScaGroupByName(group);
-        return fighterDao.getMinorCountInGroup(scaGroup);
     }
 
 }

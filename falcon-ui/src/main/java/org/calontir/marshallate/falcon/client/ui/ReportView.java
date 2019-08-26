@@ -19,6 +19,8 @@ import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.Panel;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -59,6 +61,50 @@ public class ReportView extends Composite {
         });
         initWidget(background);
         buildDropDown();
+        buildQuarterDropDown();
+        background.add(twistyPanel);
+    }
+
+    private void buildQuarterDropDown() {
+
+        background.add(new InlineLabel("Number of Quarters to report"));
+        final ListBox quarterDropBox = new ListBox();
+        quarterDropBox.setMultipleSelect(false);
+        quarterDropBox.addItem("Select Quarter");
+        quarterDropBox.addItem("1st Quarter");
+        quarterDropBox.addItem("2nd Quarter");
+        quarterDropBox.addItem("3rd Quarter");
+        quarterDropBox.addItem("4th Quarter");
+        background.add(quarterDropBox);
+
+        quarterDropBox.addChangeHandler(new ChangeHandler() {
+
+            @Override
+            public void onChange(ChangeEvent event) {
+                shout.tell("Looking up reports, please wait.");
+                String value = quarterDropBox.getValue(quarterDropBox.getSelectedIndex());
+                if (value.equals("Select Quarter")) {
+                    shout.tell("Select a quarter in the last year to view");
+                }
+                fighterService.getReports(value, new AsyncCallback<List<Report>>() {
+                    @Override
+                    public void onFailure(Throwable caught) {
+                        log.log(Level.SEVERE, "getReports{0}", caught);
+                    }
+
+                    @Override
+                    public void onSuccess(List<Report> result) {
+                        List<Report> newResult = new ArrayList<>(result);
+                        Collections.sort(newResult, (r1, r2) -> {
+                            return r1.getMarshalName().compareTo(r2.getMarshalName());
+                        });
+                        buildReportPage(newResult);
+                        shout.hide();
+                    }
+                });
+
+            }
+        });
     }
 
     private void buildDropDown() {
@@ -110,7 +156,6 @@ public class ReportView extends Composite {
             }
         });
 
-        background.add(twistyPanel);
     }
 
     private void buildReportPage(List<Report> result) {
@@ -130,7 +175,8 @@ public class ReportView extends Composite {
                     ? "Event Name: " + r.getReportParams().get("Event Name")
                     : "Marshal Type: " + r.getReportParams().get("Marshal Type")) + " <<>> "
                     + "Date Entered: "
-                    + DateTimeFormat.getFormat(DateTimeFormat.PredefinedFormat.DATE_TIME_MEDIUM).format(r.getDateEntered());
+                    + DateTimeFormat.getFormat(DateTimeFormat.PredefinedFormat.DATE_TIME_MEDIUM).format(r.
+                            getDateEntered());
 
             final DisclosurePanel twisty = new DisclosurePanel(header);
             twisty.setStylePrimaryName("reportHeader");

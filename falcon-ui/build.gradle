@@ -67,15 +67,15 @@ task cpData {
 // Always run unit tests
 appengineDeploy.dependsOn test
 appengineStage.dependsOn test
-appengineRun.dependsOn cpData
-appengineStart.dependsOn cpData
+appengineRun.shouldRunAfter cpData
+appengineStart.shouldRunAfter cpData
 
 appengine {  // App Engine tasks configuration
   run {
     port = 8080
   }
   deploy {   // deploy configuration
-      version = 'v3-0-3'
+      version = 'v4-0-0'
       project = "falcon-sca"
       promote = false
       stopPreviousVersion = false

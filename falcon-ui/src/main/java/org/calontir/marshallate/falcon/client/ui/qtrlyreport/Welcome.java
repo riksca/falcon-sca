@@ -100,12 +100,12 @@ public class Welcome extends BaseReportPage {
         });
         qtrButtonPanel.add(qtr3Button);
 
-        RadioButton qtr4Button = new RadioButton("reportType", "4th Quarter/Domesday (January 15th)");
+        RadioButton qtr4Button = new RadioButton("reportType", "4th Quarter (January 15th)");
         qtr4Button.addValueChangeHandler(new ValueChangeHandler<Boolean>() {
             @Override
             public void onValueChange(ValueChangeEvent<Boolean> event) {
                 if (event.getValue()) {
-                    addReportInfo("Report Type", "4th Quarter/Domesday");
+                    addReportInfo("Report Type", "4th Quarter");
                 }
             }
         });
