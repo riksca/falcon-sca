@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.calontir.marshallate.falcon.common.FighterStatus;
 import org.calontir.marshallate.falcon.common.UserRoles;
 import org.calontir.marshallate.falcon.db.AuthTypeDAO;

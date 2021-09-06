@@ -40,6 +40,10 @@ dependencies {
     compile project (':falcon-print')
     compile group: 'com.google.gwt', name: 'gwt-servlet', version: '+'
     compile group: 'com.google.gwt', name: 'gwt-user', version: '+'
+    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.12.0'
+    compile group: 'javax.servlet', name: 'javax.servlet-api', version: '+'
+    compile group: 'javax.servlet.jsp', name: 'jsp-api', version: '+'
+    compile group: 'jstl', name: 'jstl', version: '+'
     compile "com.google.appengine:appengine-api-1.0-sdk:+"
     providedCompile 'javax.servlet:javax.servlet-api:+'
 
@@ -75,7 +79,7 @@ appengine {  // App Engine tasks configuration
     port = 8080
   }
   deploy {   // deploy configuration
-      version = 'v4-0-1'
+      version = 'v4-0-2'
       project = "falcon-sca"
       promote = false
       stopPreviousVersion = false

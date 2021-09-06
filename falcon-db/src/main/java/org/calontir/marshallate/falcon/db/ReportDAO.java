@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.apache.commons.lang.NotImplementedException;
+import org.apache.commons.lang3.NotImplementedException;
 import org.joda.time.DateTime;
 import org.calontir.marshallate.falcon.dto.Report;
 

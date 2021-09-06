@@ -3,7 +3,7 @@ package org.calontir.marshallate.falcon.tags;
 import java.io.IOException;
 import java.util.List;
 import javax.servlet.jsp.JspWriter;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.calontir.marshallate.falcon.dto.Address;
 
 /**

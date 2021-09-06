@@ -5,7 +5,7 @@ import java.util.Date;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.JspFragment;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 
 /**
@@ -19,19 +19,19 @@ public class InputTag extends CMPExtendedTagSupport {
     private Object value;
     private String type;
     private Integer size = 0;
-    
+
     // local
     String valueOut = "";
 
     /**
-     * Called by the container to invoke this tag. 
+     * Called by the container to invoke this tag.
      * The implementation of this method is provided by the tag library developer,
      * and handles all tag processing, body iteration, etc.
      */
     @Override
     public void doTag() throws JspException {
         JspWriter out = getJspContext().getOut();
-    
+
         if (value instanceof String) {
             valueOut = (String) value;
         } else if (value instanceof Date) {
@@ -126,5 +126,5 @@ public class InputTag extends CMPExtendedTagSupport {
     public void setType(String type) {
         this.type = type;
     }
-    
+
 }
